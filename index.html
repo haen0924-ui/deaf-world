@@ -112,12 +112,6 @@
     overflow: hidden;
   }
   .poster .img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .camp-poster .img-box img { transform-origin: 50% 50%; animation: posterSway 4.5s ease-in-out infinite alternate; }
-  @keyframes posterSway {
-    from { transform: scale(1.03) translateX(-4px) rotate(-0.5deg); }
-    to   { transform: scale(1.03) translateX(4px) rotate(0.5deg); }
-  }
-  @media (prefers-reduced-motion: reduce) { .camp-poster .img-box img { animation: none; } }
   .poster .ph {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     color: #8c8576; font-size: 14px; text-align: center; padding: 12px; z-index: -1;
@@ -1378,6 +1372,11 @@
   bd.addEventListener('click', hide);
   bvBox.addEventListener('click', hide);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  // shared link ending in #video: open the sign video straight away
+  if (location.hash === '#video') {
+    show();
+    history.replaceState(null, '', location.pathname + location.search);
+  }
 })();
 </script>
 <script>
