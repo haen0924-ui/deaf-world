@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웰컴 투 데프 월드 | Welcome to the Deaf World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Nanum+Pen+Script&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ffffff;
+    --soft: #f5f3ec;
+    --ink: #121212;
+    --muted: #55514a;
+    --red: #cf3b2d;
+    --orange: #e0692b;
+    --yellow: #f2c230;
+    --green: #4b9a52;
+    --blue: #3b76c4;
+    --pink: #e58da0;
+    --navy: #263a78;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    word-break: keep-all;
+    font-family: "Noto Sans KR", "Noto Sans SC", "Malgun Gothic", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; position: relative; }
+  section { padding: 100px 0; scroll-margin-top: 84px; position: relative; overflow: hidden; }
+
+  /* ================= 언어 전환 ================= */
+  .nb { white-space: nowrap; }
+  @media (max-width: 340px) { .nb { white-space: normal !important; } }
+  body[data-lang="ko"] .l-en,
+  body[data-lang="en"] .l-ko { display: none !important; }
+
+  .lang-switch { display: flex; gap: 6px; flex-shrink: 0; }
+  .lang-switch button {
+    font: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 7px 13px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-switch button.on { background: var(--ink); color: #fff; }
+  .lang-switch button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+  /* ================= 고정 상단 메뉴 ================= */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid var(--ink);
+  }
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand { font-weight: 900; font-size: 18px; text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
+  .brand span { color: var(--red); }
+  .topmid { display: flex; align-items: center; gap: 14px; min-width: 0; flex: 1; justify-content: flex-end; }
+  .topnav { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .topnav::-webkit-scrollbar { display: none; }
+  .pill {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 8px 15px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform 0.15s, background 0.2s, color 0.2s;
+  }
+  .pill:hover, .pill:focus-visible { transform: translateY(-2px); outline: none; }
+  .pill.active { background: var(--ink); color: #fff; }
+
+  /* ================= 히어로 (포스터) ================= */
+  .hero { padding: 40px 0 70px; }
+  .poster {
+    position: relative;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .poster .img-box {
+    position: relative;
+    aspect-ratio: 1178 / 1600;
+    background: var(--soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .poster .img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .poster .ph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #8c8576; font-size: 14px; text-align: center; padding: 12px; z-index: -1;
+  }
+  .hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    color: var(--ink);
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: none;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .hotspot::after { content: "→"; font-weight: 900; }
+  .hotspot::after { color: var(--red); }
+  .hotspot:hover, .hotspot:focus-visible { transform: translate(-50%, -50%) scale(1.07); background: var(--yellow); outline: none; }
+  .hero-lead {
+    max-width: 620px;
+    margin: 50px auto 0;
+    text-align: center;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .hero-lead strong { color: var(--ink); }
+  .hero-hint {
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  /* ================= 장식 도형 (포스터 느낌) ================= */
+  .deco { position: absolute; pointer-events: none; z-index: 0; }
+  .deco svg { width: 100%; height: 100%; display: block; }
+  .wrap > * { position: relative; z-index: 1; }
+
+  /* ================= 요약 정보 ================= */
+  .info {
+    background: var(--ink);
+    color: #fff;
+  }
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+
+  .info-item { padding: 28px 16px; text-align: center; border-right: 2px solid #3a3a3a; }
+  .info-item:last-child { border-right: none; }
+  .info-item .label { font-size: 13px; color: var(--yellow); font-weight: 700; margin-bottom: 4px; }
+  .info-item .value { font-size: 18px; font-weight: 900; }
+
+  /* ================= 공통 제목 ================= */
+  .kicker {
+    display: inline-block;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    background: var(--accent, var(--yellow));
+    color: var(--ink);
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .sec-title {
+    font-size: clamp(40px, 6.5vw, 66px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin: 0 0 16px;
+  }
+  .sec-desc { color: var(--muted); font-size: 17px; max-width: 720px; margin: 0 0 52px; }
+
+  .s-exhibition { --accent: var(--yellow); background: var(--paper); }
+  .s-workshop   { --accent: #bfe3b4; background: var(--soft); }
+  .s-booth      { --accent: #ffc2b3; background: var(--paper); }
+  .s-slam       { --accent: #bcd6f5; background: var(--soft); }
+  .s-camp       { --accent: #f7c3d2; background: var(--paper); }
+
+  /* ================= 카드 ================= */
+  .stack { display: grid; gap: 40px; }
+  .card {
+    background: #fff;
+    border: 2.5px solid var(--ink);
+    border-radius: 28px;
+    padding: 34px;
+  }
+  .card.split { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: center; }
+  .card.split.reverse .img-box { order: -1; }
+  .card .img-box { margin: 0; align-self: start; }
+  .card h3 { font-size: 30px; font-weight: 900; line-height: 1.25; margin: 0 0 8px; letter-spacing: -0.02em; }
+  @media (min-width: 761px) { .card h3 { white-space: nowrap; } }
+  .card .sub { font-weight: 700; font-size: 17px; color: var(--blue); margin: 0 0 14px; }
+  .card p { margin: 0 0 12px; }
+  .card .keyline { font-size: 21px; font-weight: 900; line-height: 1.5; margin: 0 0 14px; }
+  .card .meta {
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: var(--soft);
+    border-radius: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .card .meta strong { font-weight: 900; }
+
+  .ws-num {
+    display: inline-block;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--accent, var(--yellow));
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  .img-box {
+    position: relative;
+    background: var(--soft);
+    border-radius: 22px;
+    overflow: hidden;
+    min-height: 220px;
+  }
+  .img-box img { width: 100%; height: auto; display: block; }
+  .img-box.wide { aspect-ratio: 16 / 9; }
+  .img-box.tall { aspect-ratio: 3 / 4; }
+  .img-box .ph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #8c8576; font-size: 14px; text-align: center; padding: 12px; z-index: -1;
+  }
+
+  /* ================= 부스 ================= */
+  .booth-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 52px; }
+  .booth-photos .img-box { aspect-ratio: 1 / 1; border-radius: 20px; }
+  .booth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .booth-grid .card { padding: 26px; border-radius: 24px; }
+  .booth-grid .card h3 { font-size: 19px; }
+  .booth-grid .card .sub { font-size: 14px; margin-bottom: 10px; }
+  .booth-grid .card p { font-size: 15px; }
+  .booth-pic { min-height: 160px; width: 100%; max-width: 330px; aspect-ratio: auto; margin: 16px 0 0; border-radius: 4px; }
+  .booth-pic img { height: auto; object-fit: contain; }
+  .booth-no {
+    display: inline-block;
+    font-weight: 900;
+    font-size: 13px;
+    background: var(--red);
+    color: #fff;
+    border-radius: 999px;
+    padding: 3px 13px;
+    margin-bottom: 12px;
+  }
+
+  /* ================= 캠프 ================= */
+  .timeline { list-style: none; padding: 0; margin: 0 0 40px; display: grid; gap: 20px; }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 22px;
+    align-items: center;
+    background: #fff;
+    border: 2.5px solid var(--ink);
+    border-radius: 24px;
+    padding: 24px 28px;
+  }
+  .timeline .date { font-weight: 900; font-size: 22px; color: var(--red); }
+  .timeline .title { font-weight: 900; font-size: 22px; margin-bottom: 6px; }
+  .timeline .desc { margin: 0; color: var(--muted); }
+  /* ================= 캠프 포스터 + 글 ================= */
+  .camp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; margin-bottom: 56px; }
+  .camp-poster .poster-wrap { max-width: none; margin: 0; }
+  .camp-text .sec-desc { margin: 0 0 28px; font-family: "Jua", "Noto Sans KR", sans-serif; font-size: 28px; line-height: 1.4; font-weight: 400; color: var(--ink); max-width: none; }
+  .camp-text { display: flex; flex-direction: column; }
+  .camp-text .info-list { display: grid; grid-template-columns: 1fr; gap: 14px; margin: auto 0 0; }
+  .camp-text .info-item { border: none; padding: 0; background: none; text-align: left; display: flex; align-items: center; gap: 16px; }
+  .camp-text .info-item .label { display: inline-flex; align-items: center; gap: 6px; font-family: "Noto Sans KR", sans-serif; font-size: 19px; font-weight: 900; color: var(--ink); background: var(--chip, var(--yellow)); padding: 6px 16px; border-radius: 999px; margin: 0; flex: 0 0 auto; min-width: 104px; justify-content: space-between; white-space: nowrap; }
+  .camp-text .info-item .label::after { content: "→"; font-weight: 900; color: var(--red); }
+  .camp-text .info-item:nth-child(1) { --chip: var(--yellow); }
+  .camp-text .info-item:nth-child(2) { --chip: #bcd6f5; }
+  .camp-text .info-item:nth-child(3) { --chip: #f7c3d2; }
+  .camp-text .info-item .value { font-family: "Noto Sans KR", sans-serif; line-height: 1.3; font-weight: 500; color: var(--ink); flex: 1 1 auto; min-width: 0; font-size: 19px; }
+  @media (min-width: 641px) { .camp-text .info-item .value { white-space: nowrap; } }
+  .timeline { margin: 0 0 40px; }
+  .timeline li { grid-template-columns: 290px 1fr; }
+  .timeline .date { white-space: nowrap; font-size: 22px; }
+  @media (max-width: 880px) {
+    .camp-grid { grid-template-columns: 1fr; gap: 32px; }
+    .camp-text .sec-desc { font-size: 20px; }
+    .timeline li { grid-template-columns: 1fr; }
+    .timeline .date { white-space: normal; }
+  }
+  /* ================= 일정표 ================= */
+  .sched { margin: 0 0 48px; }
+  .sched-title { font-size: 30px; font-weight: 900; margin: 0 0 22px; letter-spacing: -0.02em; }
+  .sched .day { background: #fff; border: 2.5px solid var(--ink); border-radius: 24px; padding: 22px 26px; margin-bottom: 24px; }
+  .sched .day-h { font-weight: 900; font-size: 22px; margin-bottom: 8px; }
+  .sched .srow { display: grid; grid-template-columns: 110px 1.7fr 1fr 80px 1.2fr; gap: 12px; align-items: center; padding: 12px 0; border-top: 1.5px dashed #d9d4c7; font-size: 15px; line-height: 1.5; }
+  .sched .pmeta { display: none; }
+  .sched .srow.head { font-weight: 900; font-size: 13px; color: var(--muted); border-top: none; padding-top: 4px; }
+  .sched .pname { font-weight: 900; }
+  .sched .pname .nw.brk { display: block; }
+  .sched .tag { display: inline-block; border-radius: 999px; padding: 4px 11px; font-size: 13px; font-weight: 900; color: #fff; white-space: nowrap; }
+  /* day tabs preview (mobile) */
+  .day-tabs { display: none; }
+  @media (max-width: 760px) {
+    .sched { display: block; }
+    .sched .day { display: none; margin-bottom: 0; padding: 14px 14px; border-radius: 20px; }
+    .sched .day.active { display: block; }
+    .sched .day-h { display: none; }
+    .sched .srow.head { display: none; }
+    .sched .srow { display: grid; grid-template-columns: 88px 1fr; gap: 3px 10px; align-items: start; padding: 10px 0; font-size: 15px; }
+    .sched .srow > span:first-child { justify-self: start; }
+    .sched .nw { white-space: nowrap; }
+  .nb { white-space: nowrap; }
+    .sched .srow .pname .nw { display: block; }
+    .sched .srow .pname { font-size: 15px; }
+    .sched .pmeta { display: block; grid-column: 2; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .sched .ptime, .sched .pdur, .sched .pplace { display: none; }
+    .day-tabs { display: flex; gap: 8px; overflow-x: auto; margin: 0 0 14px; padding-bottom: 4px; }
+    .day-tabs button { flex: 0 0 auto; border: 2.5px solid var(--ink); background: #fff; color: var(--ink); border-radius: 999px; padding: 8px 14px; font-weight: 900; font-size: 14px; cursor: pointer; font-family: inherit; }
+    .day-tabs button.on { background: var(--ink); color: #fff; }
+  }
+  .sched .tag.e { background: #2aa7b8; }
+  .sched .tag.b { background: #f5b82e; color: #222; }
+  .sched .tag.w { background: #e4572e; }
+  .sched .tag.f { background: #3f9d5b; }
+  .sched .tag.o { background: #8e5cd9; }
+  .sched .tag.p, .sched .tag.s { background: #2f6fd6; }
+  @media (max-width: 760px) {
+    .sched .day { padding: 18px 16px; }
+    .sched .srow.head { display: none; }
+  }
+  .poster-wrap { max-width: 520px; margin: 0 auto 48px; }
+  .poster-wrap .img-box { border-radius: 8px; aspect-ratio: 1178 / 1600; }
+
+  .btn-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 12px; }
+  .btn {
+    display: inline-block;
+    padding: 14px 24px;
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 900;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); background: var(--pink); }
+
+  /* ================= 안내 ================= */
+  .notice {
+    background: var(--yellow);
+    border-radius: 28px;
+    padding: 40px;
+  }
+  .notice h3 { font-size: 28px; font-weight: 900; margin: 0 0 14px; }
+  .notice ul { margin: 0; padding-left: 20px; font-size: 17px; font-weight: 500; }
+  .notice li { margin-bottom: 12px; }
+
+  footer { background: var(--ink); color: #fff; text-align: center; padding: 48px 20px; font-size: 15px; }
+  footer .big { font-size: 28px; font-weight: 900; margin: 0 0 8px; }
+  footer p { margin: 4px 0; color: #d9d6cd; }
+
+  /* ================= 반응형 ================= */
+  @media (max-width: 880px) {
+    .card.split { grid-template-columns: 1fr; }
+    .card.split.reverse .img-box { order: 0; }
+    .booth-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    section { padding: 76px 0; }
+    .topbar .wrap { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 6px; padding: 0 12px; }
+    .brand-wrap { flex: 1 1 auto; min-width: 0; }
+    .brand { font-size: 14px; line-height: 1.2; white-space: normal; display: block; }
+    .topmid { flex-direction: row; align-items: center; gap: 5px; flex: 0 0 auto; justify-content: flex-end; }
+    .topnav { overflow: visible; flex: 0 0 auto; }
+    .pill { font-size: 12.5px; padding: 6px 10px; border-width: 1.5px; }
+    .lang-switch { justify-content: flex-end; gap: 4px; }
+    .lang-switch button { font-size: 12px; padding: 6px 9px; border-width: 1.5px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .info-item { border-right: none; border-bottom: 2px solid #3a3a3a; }
+    .info-item:last-child { border-bottom: none; }
+    .booth-grid { grid-template-columns: 1fr; }
+    .booth-photos { grid-template-columns: repeat(2, 1fr); }
+    .timeline li { grid-template-columns: 1fr; gap: 8px; }
+    .camp-text .info-list { gap: 10px; }
+    .camp-text .info-item .label { min-width: 92px; font-size: 17px; }
+    .camp-text .info-item .value { font-size: 17px; }
+    .card { padding: 24px; }
+    .card h3 { font-size: 25px; }
+    .hotspot { font-size: 13px; padding: 7px 12px; }
+    .deco { display: none; }
+  }
+  .mbr { display: none; }
+  @media (min-width: 641px) { .meta .sep { display: none; } .meta .dur { display: block; } }
+  @media (max-width: 640px) {
+    .mbr { display: block; }
+    .dot { display: none; }
+    .sec-title { font-size: clamp(19px, 5.3vw, 26px); white-space: nowrap; }
+  }
+  .touch-only { display: none; }
+  @media (hover: none) { .touch-only { display: block; margin-top: 6px; } }
+
+  /* ================= 포스터 태그 영상 ================= */
+  /* 모바일 손가락 탭 안내 (터치 기기에서만, 계속 두드림) */
+  .tap-hint { display: none; position: absolute; right: 2px; top: calc(100% - 6px); width: 28px; height: 28px; pointer-events: none; animation: tapHint 1.3s ease-in-out infinite; }
+  .tap-hint svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  @media (hover: none) { .hotspot.playing .tap-hint { display: block; } }
+  @keyframes tapHint { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .tap-hint { animation: none; } }
+  .hotspot .hs-video {
+    display: none; position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%);
+    width: 170px; background: #fff; border: 2.5px solid var(--ink); border-radius: 16px; padding: 6px;
+    box-shadow: 0 5px 0 var(--ink); z-index: 20; pointer-events: none;
+  }
+  .hotspot.playing .hs-video { display: block; }
+  @media (hover: none) { .hotspot .hs-video { bottom: auto; top: calc(100% + 10px); } }
+  .hotspot.hs-down .hs-video { bottom: auto; top: calc(100% + 10px); }
+  .hotspot .hs-video video { width: 100%; display: block; border-radius: 10px; }
+
+  /* ================= 브랜드 영상 ================= */
+  .brand-wrap { position: relative; display: inline-block; }
+  .brand-video {
+    display: none; position: absolute; top: calc(100% + 12px); left: 0; z-index: 80;
+    width: 300px; background: #fff; border: 2.5px solid var(--ink); border-radius: 18px;
+    padding: 8px; box-shadow: 0 6px 0 var(--ink);
+  }
+  .brand-wrap.open .brand-video { display: block; }
+  .brand-video video { width: 100%; display: block; border-radius: 12px; }
+  @media (max-width: 640px) { .brand-video { width: 240px; } }
+
+  /* ================= 맨 위로 버튼 ================= */
+  .to-top {
+    position: fixed; right: 20px; bottom: 20px; z-index: 50;
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2.5px solid var(--ink); background: var(--yellow); color: var(--ink);
+    font-weight: 900; font-size: 13px; cursor: pointer;
+    box-shadow: 0 4px 0 var(--ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1;
+  }
+  .to-top:hover { transform: translateY(-2px); }
+  .to-top:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink); }
+  .to-top .arrow { font-size: 18px; }
+  /* ================= 잡지 펼침 보기 (복제본 전용) ================= */
+  .mag { position: fixed; inset: 0; z-index: 200; background: rgba(18,18,18,0.82); display: none; align-items: center; justify-content: center; padding: 24px 84px; }
+  .mag.open { display: flex; }
+  .mag-spread { position: relative; width: min(1100px, 100%); max-height: calc(100vh - 80px); display: grid; grid-template-columns: 1fr 1fr; background: #fff; border: 2.5px solid var(--ink); border-radius: 22px; overflow: hidden; box-shadow: 0 8px 0 var(--ink); transform-origin: center; }
+  .mag-spread::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 36px; margin-left: -18px; background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.12), rgba(0,0,0,0)); pointer-events: none; }
+  .mag-left { min-height: 0; background: var(--soft); }
+  .mag-left .img-box { height: 100%; min-height: 360px; border-radius: 0; border: none; margin: 0; }
+  .mag-left .img-box img { height: 100%; object-fit: cover; }
+  .mag-right { padding: 44px 44px 40px; overflow-y: auto; max-height: calc(100vh - 80px); }
+  .mag-right h3 { font-size: 34px; line-height: 1.2; margin: 0 0 10px; }
+  .mag-right .ws-num { display: inline-block; margin-bottom: 12px; }
+  .mag.no-img .mag-spread { grid-template-columns: 1fr; }
+  .mag.no-img .mag-left { display: none; }
+  .mag-spread.out { animation: magOut 0.22s ease-in forwards; }
+  .mag-spread.in { animation: magIn 0.3s ease-out; }
+  .mag-spread.out.back { animation-name: magOutB; }
+  .mag-spread.in.back { animation-name: magInB; }
+  @keyframes magOut { to { transform: perspective(1400px) rotateY(-14deg) scale(0.96); opacity: 0; } }
+  @keyframes magIn { from { transform: perspective(1400px) rotateY(14deg) scale(0.96); opacity: 0; } }
+  @keyframes magOutB { to { transform: perspective(1400px) rotateY(14deg) scale(0.96); opacity: 0; } }
+  @keyframes magInB { from { transform: perspective(1400px) rotateY(-14deg) scale(0.96); opacity: 0; } }
+  .mag-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 2.5px solid var(--ink); background: var(--yellow); font-size: 24px; font-weight: 900; cursor: pointer; color: var(--ink); }
+  .mag-btn.prev { left: 16px; }
+  .mag-btn.next { right: 16px; }
+  .mag-close { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; border-radius: 50%; border: 2.5px solid #fff; background: transparent; color: #fff; font-size: 22px; font-weight: 900; cursor: pointer; }
+  .mag-count { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); color: #fff; font-weight: 900; font-size: 14px; }
+  @media (max-width: 760px) {
+    .mag { padding: 62px 10px 110px; align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .mag-spread { grid-template-columns: 1fr; max-height: none; width: 100%; margin-top: 52px; }
+    .mag-spread::after { display: none; }
+    .mag-left .img-box { min-height: 260px; height: 260px; }
+    .mag-right { max-height: none; overflow: visible; padding: 26px 22px 30px; }
+    .mag-right h3 { font-size: 26px; }
+    .mag-btn { position: fixed; width: 52px; height: 52px; font-size: 22px; top: auto; bottom: 22px; transform: none; z-index: 210; }
+    .mag-btn.prev { left: 14px; } .mag-btn.next { right: 14px; }
+    .mag-close { position: fixed; top: 12px; right: 12px; z-index: 210; background: var(--ink); }
+    .mag-count { position: fixed; bottom: 42px; z-index: 210; }
+  }
+  /* ================= 책 안의 일정표 페이지 ================= */
+  .mag.sched-page .mag-left { background: var(--yellow); display: flex; flex-direction: column; justify-content: flex-start; padding: 44px; min-height: 260px; }
+  .sd-big { font-family: "Nanum Pen Script", "Noto Sans KR", sans-serif; font-size: 72px; line-height: 1.1; white-space: nowrap; font-weight: 400; color: var(--ink); }
+  @media (max-width: 760px) { .sd-big { font-size: 52px; } }
+  .sd-sub { margin: 10px 0 0; font-weight: 900; font-size: 17px; color: var(--ink); }
+  .mag-right .sr { border-top: 1.5px dashed #d9d4c7; padding: 14px 0; }
+  .mag-right .sr:first-child { border-top: none; padding-top: 0; }
+  .mag-right .sr-tag .tag { display: inline-block; border-radius: 999px; padding: 4px 11px; font-size: 13px; font-weight: 900; color: #fff; }
+  .mag-right .sr-tag .tag.e { background: #2aa7b8; }
+  .mag-right .sr-tag .tag.b { background: #f5b82e; color: #222; }
+  .mag-right .sr-tag .tag.w { background: #e4572e; }
+  .mag-right .sr-tag .tag.f { background: #3f9d5b; }
+  .mag-right .sr-tag .tag.o { background: #8e5cd9; }
+  .mag-right .sr-tag .tag.p, .mag-right .sr-tag .tag.s { background: #2f6fd6; }
+  .mag-right .sr h4 { margin: 8px 0 4px; font-size: 20px; font-weight: 900; line-height: 1.4; }
+  .mag-right .sr p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+  .mag-right .sr .nw { display: inline; }
+  /* 강조 밑줄: 빨간 손그림 선이 그려지고 살짝 물결치기 */
+  .uline { position: relative; display: inline-block; }
+  .uline::after {
+    content: ""; position: absolute; left: -2%; right: -2%; bottom: -10px; height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q 12 0 25 5 T 50 5 T 75 5 T 100 4' stroke='%23cf3b2d' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    clip-path: inset(0 100% 0 0);
+    animation: uDraw 1.1s ease-out forwards, uWave 2.6s ease-in-out 1.1s infinite alternate;
+  }
+  @keyframes uDraw { to { clip-path: inset(0 0 0 0); } }
+  @keyframes uWave { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .uline::after { animation: none; clip-path: none; } }
+  /* ================= 책장 넘김 (3D) ================= */
+  .mag-spread { perspective: 1600px; width: min(1100px, 100%); height: min(640px, calc(100vh - 80px)); max-height: none; }
+  .mag-spread > .mag-left, .mag-spread > .mag-right { height: 100%; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+  .mag-right { padding: 0; }
+  .mag-left.text-page { padding: 0; }
+  .pg-in { margin: 0 auto; width: 100%; box-sizing: border-box; padding: 44px; }
+  .mag-left.sched-left { justify-content: flex-start; padding: 44px; }
+  .mag-left .img-box { height: 100%; }
+  .mag-left.text-page { background: #fff; }
+  .mag-left.text-page h3 { font-size: 34px; line-height: 1.2; margin: 0 0 10px; }
+  .mag-left.text-page .ws-num { display: inline-block; margin-bottom: 12px; }
+  .mag-sheet { position: absolute; top: 0; bottom: 0; transform-style: preserve-3d; z-index: 3; pointer-events: none; }
+  .mag-sheet.right { left: 50%; right: 0; }
+  .mag-sheet.left { left: 0; right: 50%; }
+  .mag-sheet.full { left: 0; right: 0; }
+  .sheet-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: #fff; overflow: hidden; }
+  .sheet-face.back { transform: rotateY(180deg); }
+  .sheet-face.blank { background: #fbfaf6; }
+  .sheet-face > .mag-left, .sheet-face > .mag-right { height: 100%; max-height: none; }
+  .sheet-face .sheet-stack { height: 100%; overflow: hidden; }
+  .mag-shade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 2; }
+  @media (max-width: 760px) {
+    .mag-spread { height: auto; }
+    .mag-spread > .mag-left, .mag-spread > .mag-right { height: auto; overflow: visible; }
+    .pg-in { padding: 26px 22px; }
+    .mag-left.text-page h3 { font-size: 26px; }
+    .mag.sched-page .mag-left, .mag-left.sched-left { padding: 18px 20px; min-height: 0; }
+    .sd-big { font-size: 38px; line-height: 1.05; }
+    .sd-sub { margin-top: 6px; font-size: 15px; }
+  }
+  /* 부스 페이지: 글은 위에서부터, 사진은 하단 가운데 고정 (좌·우 페이지 동일) */
+  .pg-in:has(.booth-pic) { display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+  .pg-in:has(.booth-pic) .booth-no { align-self: flex-start; }
+  .pg-in:has(.booth-pic) .booth-pic { height: auto; min-height: 160px; align-self: center; margin: auto 0 0; max-width: 330px; border-radius: 4px; }
+  /* mobile booth list: one long page, booths stacked */
+  .booth-item { padding-bottom: 26px; margin-bottom: 26px; border-bottom: 1.5px dashed #d9d4c7; }
+  .booth-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .booth-item .booth-pic { margin: 16px auto 0; }
+  .booth-pic img, .mag-left .booth-pic img, .booth-item .booth-pic img { height: auto; object-fit: contain; }
+</style>
+</head>
+<body data-lang="ko">
+
+<!-- 포스터 느낌의 도형 (재사용) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-flower" viewBox="0 0 200 200">
+      <g fill="#cf3b2d">
+        <circle cx="70" cy="70" r="52"/><circle cx="130" cy="70" r="52"/>
+        <circle cx="70" cy="130" r="52"/><circle cx="130" cy="130" r="52"/>
+      </g>
+      <circle cx="100" cy="100" r="16" fill="#fff"/>
+    </symbol>
+    <symbol id="s-star" viewBox="0 0 200 200">
+      <polygon points="100,10 122,72 188,72 136,112 156,178 100,138 44,178 64,112 12,72 78,72" fill="#e0692b" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="s-blob" viewBox="0 0 200 200">
+      <path d="M40,60 C70,10 150,20 170,70 C190,120 160,180 110,170 C60,160 20,130 40,60 Z" fill="#3b76c4"/>
+    </symbol>
+    <symbol id="s-arch" viewBox="0 0 200 200">
+      <path d="M20,170 L20,100 C20,30 180,30 180,100 L180,170 L140,170 L140,110 C140,85 60,85 60,110 L60,170 Z" fill="#4b9a52"/>
+    </symbol>
+    <symbol id="s-sun" viewBox="0 0 200 200">
+      <g fill="#f2c230">
+        <rect x="90" y="10" width="20" height="60" rx="10"/><rect x="90" y="130" width="20" height="60" rx="10"/>
+        <rect x="10" y="90" width="60" height="20" rx="10"/><rect x="130" y="90" width="60" height="20" rx="10"/>
+        <rect x="35" y="35" width="20" height="50" rx="10" transform="rotate(-45 45 60)"/>
+        <rect x="145" y="35" width="20" height="50" rx="10" transform="rotate(45 155 60)"/>
+        <rect x="35" y="115" width="20" height="50" rx="10" transform="rotate(45 45 140)"/>
+        <rect x="145" y="115" width="20" height="50" rx="10" transform="rotate(-45 155 140)"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ 고정 상단 메뉴 ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand-wrap">
+      <a class="brand" href="#top">
+      <span class="l-ko">웰컴 투 <span>데프 월드</span></span>
+      <span class="l-en">Welcome to the <span>Deaf World</span></span>
+      
+    </a>
+      <div class="brand-video"><video src="videos/welcome-deaf-world.mp4" muted loop playsinline preload="metadata"></video></div>
+    </div>
+    <div class="topmid">
+      <nav class="topnav" aria-label="프로그램 메뉴">
+        <a class="pill" href="#book-schedule"><span class="l-ko">일정표</span><span class="l-en">Schedule</span></a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="언어 선택">
+        <button type="button" data-set-lang="ko">한국어</button>
+        <button type="button" data-set-lang="en">English</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 히어로: 포스터 + 프로그램 이름표 ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="camp-grid">
+    <div class="poster camp-poster">
+      <div class="img-box">
+        <img src="images/camp-poster.jpg" alt="2026 모두 이야기 캠프 포스터" onerror="this.style.display='none'">
+        <div class="ph">images/camp-poster.jpg</div>
+      </div>
+
+      <a class="hotspot hs-down" href="#book-exhibition" style="left:73%; top:21%;">
+        <span class="l-ko">전시</span><span class="l-en">Exhibition</span><span class="tap-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 11.5 V3.8 a1.8 1.8 0 0 1 3.6 0 V11"/><path d="M13.1 11 V8.6 a1.6 1.6 0 0 1 3.2 0 V11"/><path d="M16.3 11 V9.8 a1.5 1.5 0 0 1 3 0 V14.5 a5 5 0 0 1 -5 5 H12 a5 5 0 0 1 -4.3 -2.5 L5.2 13.8 a1.6 1.6 0 0 1 2.3 -2.2 L9.5 13.5"/></svg></span><span class="hs-video"><video src="videos/sign-exhibition.mp4" muted loop playsinline preload="metadata"></video></span></a>
+      <a class="hotspot" href="#book-workshop" style="left:23%; top:51%;">
+        <span class="l-ko">워크숍</span><span class="l-en">Workshop</span><span class="tap-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 11.5 V3.8 a1.8 1.8 0 0 1 3.6 0 V11"/><path d="M13.1 11 V8.6 a1.6 1.6 0 0 1 3.2 0 V11"/><path d="M16.3 11 V9.8 a1.5 1.5 0 0 1 3 0 V14.5 a5 5 0 0 1 -5 5 H12 a5 5 0 0 1 -4.3 -2.5 L5.2 13.8 a1.6 1.6 0 0 1 2.3 -2.2 L9.5 13.5"/></svg></span><span class="hs-video"><video src="videos/sign-workshop.mp4" muted loop playsinline preload="metadata"></video></span></a>
+      <a class="hotspot" href="#book-booth" style="left:45%; top:67%;">
+        <span class="l-ko">부스</span><span class="l-en">Booth</span><span class="tap-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 11.5 V3.8 a1.8 1.8 0 0 1 3.6 0 V11"/><path d="M13.1 11 V8.6 a1.6 1.6 0 0 1 3.2 0 V11"/><path d="M16.3 11 V9.8 a1.5 1.5 0 0 1 3 0 V14.5 a5 5 0 0 1 -5 5 H12 a5 5 0 0 1 -4.3 -2.5 L5.2 13.8 a1.6 1.6 0 0 1 2.3 -2.2 L9.5 13.5"/></svg></span><span class="hs-video"><video src="videos/sign-booth.mp4" muted loop playsinline preload="metadata"></video></span></a>
+      <a class="hotspot" href="#book-slam-performance" style="left:75%; top:80%;">
+        <span class="l-ko"><span class="nb">슬램·공연</span></span><span class="l-en">Performance&Slam</span><span class="tap-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 11.5 V3.8 a1.8 1.8 0 0 1 3.6 0 V11"/><path d="M13.1 11 V8.6 a1.6 1.6 0 0 1 3.2 0 V11"/><path d="M16.3 11 V9.8 a1.5 1.5 0 0 1 3 0 V14.5 a5 5 0 0 1 -5 5 H12 a5 5 0 0 1 -4.3 -2.5 L5.2 13.8 a1.6 1.6 0 0 1 2.3 -2.2 L9.5 13.5"/></svg></span><span class="hs-video"><video src="videos/sign-performance.mp4" muted loop playsinline preload="metadata"></video></span></a>
+    </div>
+
+    <div class="camp-text">
+        <p class="sec-desc l-ko">서로 다른 경험과 감각이 만나면<br><span class="uline">어떤 이야기가 만들어질까요?</span><br><br>장애예술인이 창작과 교류의 주체가 되어,<br>시민과 함께 새로운 예술적 경험을<br>만들어 가는 <span class="uline">참여형 문화 예술 축제</span>입니다.</p>
+    <p class="sec-desc l-en">What kind of stories will emerge when different experiences and senses meet? Modu-Story Camp is a participatory arts festival in which disabled artists lead creation and exchange, creating new artistic experiences together with citizens.</p>
+        <div class="info-list">
+    <div class="info-item">
+      <div class="label l-ko">일시</div>
+      <div class="label l-en">Date & Time</div>
+      
+      <div class="value l-ko">10. <span class="nb">31.(토)</span> 10:00~21:00</div>
+      <div class="value l-en">Oct 31 <span class="nb">(Sat)</span> 10:00–21:00</div>
+      
+    </div>
+    <div class="info-item">
+      <div class="label l-ko">장소</div>
+      <div class="label l-en">Venue</div>
+      
+      <div class="value l-ko">모두예술극장</div>
+      <div class="value l-en">Modu Art Theater</div>
+      
+    </div>
+    <div class="info-item">
+      <div class="label l-ko">참여 방법</div>
+      <div class="label l-en">How to Join</div>
+      
+      <div class="value l-ko"><span class="nb">전시·워크숍·공연</span> 현장 접수</div>
+      <div class="value l-en">On-site registration</div>
+      
+    </div>
+        </div>
+
+      </div>
+    </div>
+
+  <ul class="timeline">
+      <li class="l-ko">
+        <div class="date">10. <span class="nb">31.(토)</span></div>
+        <div>
+          <div class="title">웰컴 투 데프 월드</div>
+          <p class="desc">수어가 살아 움직이는 농세계로의 초대. 농인이 직접 운영하는 부스, 전시, 워크숍, 공연, 슬램이 열립니다.</p>
+        </div>
+      </li>
+      <li class="l-en">
+        <div class="date">Oct 31 <span class="nb">(Sat)</span></div>
+        <div>
+          <div class="title">Welcome to the Deaf World</div>
+          <p class="desc">An invitation to the Deaf world, where sign language comes alive. Deaf-run booths, exhibitions, workshops, performances and slams.</p>
+        </div>
+      </li>
+      
+
+      <li class="l-ko">
+        <div class="date">11. <span class="nb">6.(금)</span> – 11. <span class="nb">8.(일)</span></div>
+        <div>
+          <div class="title">다채로운 장애예술 프로그램</div>
+          <p class="desc">각자의 방식으로 표현하고, 서로의 이야기를 나누며 예술로 연결되는 시간입니다. 공연과 전시, 낭독, 토크, 워크숍 등 다양한 프로그램을 통해 장애예술의 새로운 가능성을 만나 보세요.</p>
+        </div>
+      </li>
+      <li class="l-en">
+        <div class="date">Nov 6 <span class="nb">(Fri)</span> – Nov 8 <span class="nb">(Sun)</span></div>
+        <div>
+          <div class="title">Diverse Disability Arts Programs</div>
+          <p class="desc">Express in your own way, share stories with one another, and connect through art. Explore new possibilities of disability arts through performances, exhibitions, readings, talks and workshops.</p>
+        </div>
+      </li>
+      
+    </ul>
+
+  </div>
+</header>
+
+<!-- ============ 전시 ============ -->
+
+
+<!-- ============ 워크숍 ============ -->
+
+
+<!-- ============ 부스 ============ -->
+
+
+<!-- ============ 슬램 & 공연 ============ -->
+
+
+<!-- ============ 캠프 ============ -->
+<div class="wrap" style="padding-top:8px; padding-bottom:56px;">
+    <div class="btn-row">
+      <a class="btn" href="https://moduarttheater.or.kr" target="_blank" rel="noopener">
+        <span class="l-ko">모두예술극장 홈페이지</span><span class="l-en">Modu Art Theater Website</span>
+      </a>
+      <a class="btn" href="https://www.instagram.com/dawis.kr/" target="_blank" rel="noopener">
+        <span class="l-ko">인스타그램 dawis.kr</span><span class="l-en">Instagram dawis.kr</span>
+      </a>
+    </div>
+  </div>
+
+
+<!-- ============ 안내 ============ -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="notice">
+      <h3 class="l-ko">참여 안내</h3>
+      <h3 class="l-en">Participation Guide</h3>
+      
+      <ul class="l-ko">
+        <li>〈웰컴 투 데프 월드〉 전시, 워크숍, 슬램, 공연 프로그램은 모두 <strong>현장 접수</strong>로 진행됩니다.</li>
+        <li>부스별 체험 및 판매 품목은 현장 운영 상황에 따라 달라질 수 있습니다.</li>
+        <li>프로그램별 상세 일정과 참여 방법은 <strong>모두예술극장 공식 홈페이지 및 인스타그램</strong>에서 확인해 주세요.</li>
+      </ul>
+      <ul class="l-en">
+        <li>All Welcome to the Deaf World exhibitions, workshops, slams and performances are on-site registration.</li>
+        <li>Booth experiences and products may change depending on on-site conditions.</li>
+        <li>For detailed schedules and how to participate, check the official Modu Art Theater website and Instagram.</li>
+      </ul>
+      
+    </div>
+  </div>
+</section>
+
+<div id="bookSource" hidden>
+<div class="sched l-ko" id="schedule">
+  <h3 class="sched-title">전체 프로그램 일정표</h3>
+  <div class="day">
+    <div class="day-h">10. <span class="nb">31.(토)</span></div>
+    <div class="srow head"><span>구분</span><span>프로그램명</span><span>시간</span><span>진행시간</span><span>장소</span></div>
+    <div class="srow"><span><span class="tag e">전시</span></span><span class="pname"><span class="nw">&lt;한 공간, 시선의 온도&gt;,</span> <span class="nw">&lt;수어문학 전시&gt;,</span> <span class="nw brk">&lt;수어문자 전시 및 해설&gt;</span></span><span class="ptime">10:00~17:30</span><span class="pdur">종일</span><span class="pplace">모두스튜디오 <span class="nb">(3층)</span></span></div>
+    <div class="srow"><span><span class="tag b">부스</span></span><span class="pname">체험/판매</span><span class="ptime">10:00~17:30</span><span class="pdur">종일</span><span class="pplace">모두라운지 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">코다 사용설명서</span><span class="ptime">10:30~11:20<br>13:30~14:20</span><span class="pdur">50분</span><span class="pplace">연습실 1 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">VV 워크숍</span><span class="ptime">10:30~11:20<br>15:30~16:20</span><span class="pdur">50분</span><span class="pplace">연습실 2 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">보이는 언어를 기록하다: 수어문자</span><span class="ptime">11:30~12:20<br>13:30~14:20</span><span class="pdur">50분</span><span class="pplace">연습실 1 <span class="nb">(2층),</span> 연습실 2 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">움직임 &amp; 수어 릴레이 댄스 워크숍</span><span class="ptime">11:30~12:20<br>14:30~15:20</span><span class="pdur">50분</span><span class="pplace">연습실 2 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">그림으로 만나는 농인의 시선 <span class="nb">-De&#x27;VIA(데비아)</span> 시각예술 체험 워크숍</span><span class="ptime">14:30~15:20<br>15:30~17:20</span><span class="pdur">50분</span><span class="pplace">연습실 1 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag p">공연</span></span><span class="pname">수어문학</span><span class="ptime">18:00~19:30</span><span class="pdur">90분</span><span class="pplace">공연장 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag s">슬램</span></span><span class="pname">슬램</span><span class="ptime">19:30~21:00</span><span class="pdur">90분</span><span class="pplace">공연장 <span class="nb">(2층)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">11. <span class="nb">6.(금)</span></div>
+    <div class="srow head"><span>구분</span><span>프로그램명</span><span>시간</span><span>진행시간</span><span>장소</span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210분</span><span class="pplace">대연습실 <span class="nb">(1층)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">11. <span class="nb">7.(토)</span></div>
+    <div class="srow head"><span>구분</span><span>프로그램명</span><span>시간</span><span>진행시간</span><span>장소</span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">야호야호: 바디밍 &amp; 투게더링</span><span class="ptime">11:00~14:00</span><span class="pdur">180분</span><span class="pplace">공연장, 모두라운지 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210분</span><span class="pplace">대연습실 <span class="nb">(1층)</span></span></div>
+    <div class="srow"><span><span class="tag f">포럼</span></span><span class="pname">예술 양육</span><span class="ptime">14:20~15:30</span><span class="pdur">70분</span><span class="pplace">모두라운지 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag o">자유발언대</span></span><span class="pname">스탠드 <span class="nb">&#x27;역(易)&#x27;</span> 코미디</span><span class="ptime">15:30~16:40</span><span class="pdur">70분</span><span class="pplace">모두스튜디오 <span class="nb">(3층)</span></span></div>
+    <div class="srow"><span><span class="tag p">공연</span></span><span class="pname">모두의 콘서트</span><span class="ptime">17:00~18:30</span><span class="pdur">90분</span><span class="pplace">공연장 <span class="nb">(2층)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">11. <span class="nb">8.(일)</span></div>
+    <div class="srow head"><span>구분</span><span>프로그램명</span><span>시간</span><span>진행시간</span><span>장소</span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">야호야호: 바디밍 &amp; 투게더링</span><span class="ptime">11:00~14:00</span><span class="pdur">180분</span><span class="pplace">공연장, 모두라운지 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210분</span><span class="pplace">대연습실 <span class="nb">(1층)</span></span></div>
+    <div class="srow"><span><span class="tag w">워크숍</span></span><span class="pname">넋넋한 예술</span><span class="ptime">14:00~14:40<br>15:00~15:40</span><span class="pdur">40분</span><span class="pplace">연습실 1 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag p">공연</span></span><span class="pname">짜잔쨈, 모두예술극장</span><span class="ptime">16:00~17:10</span><span class="pdur">70분</span><span class="pplace">모두라운지 <span class="nb">(2층)</span></span></div>
+    <div class="srow"><span><span class="tag o">자유발언대</span></span><span class="pname">스탠드 <span class="nb">&#x27;역(易)&#x27;</span> 코미디</span><span class="ptime">17:30~18:40</span><span class="pdur">70분</span><span class="pplace">모두스튜디오 <span class="nb">(3층)</span></span></div>
+  </div>
+</div>
+<div class="sched l-en">
+  <h3 class="sched-title">Full Program Schedule</h3>
+  <div class="day">
+    <div class="day-h">Oct 31 <span class="nb">(Sat)</span></div>
+    <div class="srow head"><span>Type</span><span>Program</span><span>Time</span><span>Duration</span><span>Venue</span></div>
+    <div class="srow"><span><span class="tag e">Exhibition</span></span><span class="pname"><span class="nw">&lt;한 공간, 시선의 온도&gt;,</span> <span class="nw">&lt;수어문학 전시&gt;,</span> <span class="nw brk">&lt;수어문자 전시 및 해설&gt;</span></span><span class="ptime">10:00~17:30</span><span class="pdur">All day</span><span class="pplace">Modu Studio <span class="nb">(3F)</span></span></div>
+    <div class="srow"><span><span class="tag b">Booth</span></span><span class="pname">체험/판매</span><span class="ptime">10:00~17:30</span><span class="pdur">All day</span><span class="pplace">Modu Lounge <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">코다 사용설명서</span><span class="ptime">10:30~11:20<br>13:30~14:20</span><span class="pdur">50 min</span><span class="pplace">Studio 1 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">VV 워크숍</span><span class="ptime">10:30~11:20<br>15:30~16:20</span><span class="pdur">50 min</span><span class="pplace">Studio 2 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">보이는 언어를 기록하다: 수어문자</span><span class="ptime">11:30~12:20<br>13:30~14:20</span><span class="pdur">50 min</span><span class="pplace">Studio 1 <span class="nb">(2F),</span> Studio 2 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">움직임 &amp; 수어 릴레이 댄스 워크숍</span><span class="ptime">11:30~12:20<br>14:30~15:20</span><span class="pdur">50 min</span><span class="pplace">Studio 2 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">그림으로 만나는 농인의 시선 <span class="nb">-De&#x27;VIA(데비아)</span> 시각예술 체험 워크숍</span><span class="ptime">14:30~15:20<br>15:30~17:20</span><span class="pdur">50 min</span><span class="pplace">Studio 1 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag p">Performance</span></span><span class="pname">수어문학</span><span class="ptime">18:00~19:30</span><span class="pdur">90 min</span><span class="pplace">Auditorium <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag s">Slam</span></span><span class="pname">슬램</span><span class="ptime">19:30~21:00</span><span class="pdur">90 min</span><span class="pplace">Auditorium <span class="nb">(2F)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">Nov 6 <span class="nb">(Fri)</span></div>
+    <div class="srow head"><span>Type</span><span>Program</span><span>Time</span><span>Duration</span><span>Venue</span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210 min</span><span class="pplace">Large Studio <span class="nb">(1F)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">Nov 7 <span class="nb">(Sat)</span></div>
+    <div class="srow head"><span>Type</span><span>Program</span><span>Time</span><span>Duration</span><span>Venue</span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">야호야호: 바디밍 &amp; 투게더링</span><span class="ptime">11:00~14:00</span><span class="pdur">180 min</span><span class="pplace">Auditorium, Modu Lounge <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210 min</span><span class="pplace">Large Studio <span class="nb">(1F)</span></span></div>
+    <div class="srow"><span><span class="tag f">Forum</span></span><span class="pname">예술 양육</span><span class="ptime">14:20~15:30</span><span class="pdur">70 min</span><span class="pplace">Modu Lounge <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag o">Open Mic</span></span><span class="pname">스탠드 <span class="nb">&#x27;역(易)&#x27;</span> 코미디</span><span class="ptime">15:30~16:40</span><span class="pdur">70 min</span><span class="pplace">Modu Studio <span class="nb">(3F)</span></span></div>
+    <div class="srow"><span><span class="tag p">Performance</span></span><span class="pname">모두의 콘서트</span><span class="ptime">17:00~18:30</span><span class="pdur">90 min</span><span class="pplace">Auditorium <span class="nb">(2F)</span></span></div>
+  </div>
+  <div class="day">
+    <div class="day-h">Nov 8 <span class="nb">(Sun)</span></div>
+    <div class="srow head"><span>Type</span><span>Program</span><span>Time</span><span>Duration</span><span>Venue</span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">야호야호: 바디밍 &amp; 투게더링</span><span class="ptime">11:00~14:00</span><span class="pdur">180 min</span><span class="pplace">Auditorium, Modu Lounge <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">손끝에서 열리는 시</span><span class="ptime">13:00~16:30</span><span class="pdur">210 min</span><span class="pplace">Large Studio <span class="nb">(1F)</span></span></div>
+    <div class="srow"><span><span class="tag w">Workshop</span></span><span class="pname">넋넋한 예술</span><span class="ptime">14:00~14:40<br>15:00~15:40</span><span class="pdur">40 min</span><span class="pplace">Studio 1 <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag p">Performance</span></span><span class="pname">짜잔쨈, 모두예술극장</span><span class="ptime">16:00~17:10</span><span class="pdur">70 min</span><span class="pplace">Modu Lounge <span class="nb">(2F)</span></span></div>
+    <div class="srow"><span><span class="tag o">Open Mic</span></span><span class="pname">스탠드 <span class="nb">&#x27;역(易)&#x27;</span> 코미디</span><span class="ptime">17:30~18:40</span><span class="pdur">70 min</span><span class="pplace">Modu Studio <span class="nb">(3F)</span></span></div>
+  </div>
+</div>
+
+
+
+<section class="s-exhibition" id="exhibition">
+  <div class="deco" style="width:220px; height:220px; right:-60px; top:40px;"><svg><use href="#s-sun"/></svg></div>
+  <div class="wrap">
+    <span class="kicker l-ko">01 전시</span>
+    <span class="kicker l-en">01 EXHIBITION</span>
+    
+    <h2 class="sec-title l-ko">〈웰컴 투 데프 월드〉 전시</h2>
+    <h2 class="sec-title l-en">Welcome to the Deaf World Exhibitions</h2>
+    
+    <p class="sec-desc l-ko">일시 10. <span class="nb">31.(토)</span> 10:00~17:30<span class="dot"> · </span><br class="mbr">장소 모두예술극장 모두스튜디오<br>손과 몸의 움직임이 문자와 그림, 문학이 되는 순간을 만나 보세요.</p>
+    <p class="sec-desc l-en">Oct 31 <span class="nb">(Sat)</span> 10:00–17:30 · Modu Studio, Modu Art Theater<br>Experience the moment when movements of hands and body become writing, painting and literature.</p>
+    
+
+    <div class="stack">
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">전시 1</span><span class="ws-num l-en">Exhibition 1</span>
+          <h3 class="l-ko">수어문자 전시 및 해설</h3>
+          <h3 class="l-en">SignWriting Exhibition & Guided Commentary</h3>
+          
+          <p class="sub l-ko">김인선</p><p class="sub l-en">Kim In-sun</p>
+          <p class="keyline l-ko">한국어 음성 언어를 한글로 기록하듯, <span class="nb">수어문자(SignWriting)로</span> 기록한 한국수어를 소개합니다.</p>
+          <p class="keyline l-en">Just as spoken Korean is written in Hangul, this exhibition presents Korean Sign Language recorded in SignWriting.</p>
+          
+          <p class="l-ko">수어 문학 중 수어 <span class="nb">시(Sign Language Poem)</span> 영상을 수어문자로 전사한 결과물을 전시합니다. 수어문자는 수어의 형태와 움직임을 그대로 표기할 수 있는 기호 체계입니다. 한국어 번역문이 아닌 수어문자 표기문을 보며, 수어로 표현할 수 있는 특성을 이해하고 수어를 기록할 때 수어문자를 활용할 수 있음을 알려줍니다.</p>
+          <p class="l-en">The exhibition shows sign language poems from sign literature, transcribed into SignWriting. SignWriting is a symbol system that records the shape and movement of sign language as they are. Looking at SignWriting texts rather than Korean translations, visitors can understand what sign language can express and see how SignWriting can be used to record sign language.</p>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/exhibit-1-signwriting.jpg" alt="수어문자 전시 작품" onerror="this.style.display='none'">
+          <div class="ph">images/exhibit-1-signwriting.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split reverse">
+        <div>
+          <span class="ws-num l-ko">전시 2</span><span class="ws-num l-en">Exhibition 2</span>
+          <h3 class="l-ko">한 공간, 시선의 온도</h3>
+          <h3 class="l-en">A Space, the Temperature of Gaze</h3>
+          
+          <p class="sub l-ko">청홍</p><p class="sub l-en">Cheong-hong</p>
+          <p class="keyline l-ko">농인의 언어와 문화, 삶의 경험을 담은 <span class="nb">데비아(De'VIA)</span> 작품을 만나 보는 전시입니다.</p>
+          <p class="keyline l-en">An exhibition of De'VIA works that carry Deaf language, culture and life experience.</p>
+          
+          <p class="l-ko">이번 전시는 데비아의 역사와 의미를 소개하고, 관련 작품을 통해 데비아에 대한 이해를 넓히고자 합니다. 농인으로 살아가며 경험한 소통의 방식과 시선, 사회 속에서 마주한 편견과 감정을 표현한 개인 작품을 선보입니다. 농인의 시선으로 바라본 세상과 그 안에 담긴 다양한 생각을 관람객과 나누고자 합니다.</p>
+          <p class="l-en">This exhibition introduces the history and meaning of De'VIA and deepens understanding of it through related works. It presents personal works that express the ways of communicating, the perspectives, and the prejudices and emotions encountered in society as a Deaf person. Through them, it aims to share with visitors the world as seen through Deaf eyes and the many thoughts it holds.</p>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/exhibit-2-devia.jpg" alt="청홍 작품" onerror="this.style.display='none'">
+          <div class="ph">images/exhibit-2-devia.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">전시 3</span><span class="ws-num l-en">Exhibition 3</span>
+          <h3 class="l-ko">수어문학 전시</h3>
+          <h3 class="l-en">Sign Literature Exhibition</h3>
+          
+          <p class="sub l-ko">수어민들레</p><p class="sub l-en">Sign Language Dandelion</p>
+          <p class="keyline l-ko">농인의 언어인 수어로 창작된 다양한 수어문학 작품을 만나는 시간입니다.</p>
+          <p class="keyline l-en">A time to meet diverse sign literature works created in sign language, the language of Deaf people.</p>
+          
+          <p class="l-ko">수어문학은 수어시를 비롯해 수어이야기, 비주얼 <span class="nb">버내큘러(Visual Vernacular, VV),</span> 수어연극 등 다양한 장르로 이루어져 있습니다. 손과 몸의 움직임과 표정, 공간의 활용을 통해 이야기를 전하고 감정을 표현하는 수어문학의 매력을 보여 드립니다. 수어가 지닌 예술적 가능성과 시각적 언어의 아름다움을 발견하는 기회입니다.</p>
+          <p class="l-en">Sign literature includes sign poetry, sign stories, Visual Vernacular <span class="nb">(VV),</span> sign theatre and more. Through the movement of hands and body, facial expression and use of space, it conveys stories and emotions. This exhibition offers a chance to discover the artistic potential of sign language and the beauty of visual language.</p>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/exhibit-3-sueo-literature.jpg" alt="수어민들레 수어문학 작가" onerror="this.style.display='none'">
+          <div class="ph">images/exhibit-3-sueo-literature.jpg</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="s-workshop" id="workshop">
+  <div class="deco" style="width:200px; height:200px; left:-50px; top:60px;"><svg><use href="#s-star"/></svg></div>
+  <div class="wrap">
+    <span class="kicker l-ko">02 워크숍</span>
+    <span class="kicker l-en">02 WORKSHOP</span>
+    
+    <h2 class="sec-title l-ko">〈웰컴 투 데프 월드〉 워크숍</h2>
+    <h2 class="sec-title l-en">Welcome to the Deaf World Workshops</h2>
+    
+    <p class="sec-desc l-ko">수어로 이야기하고, 몸으로 표현하고, 그림으로 생각을 나누는 참여형 워크숍입니다. 모든 워크숍은 현장 접수로 진행됩니다.</p>
+    <p class="sec-desc l-en">Participatory workshops where you tell stories in sign language, express with your body, and share ideas through drawing. All workshops are on-site registration.</p>
+    
+
+    <div class="stack">
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">WS 01</span><span class="ws-num l-en">Workshop 1</span>
+          <h3 class="l-ko">코다 사용설명서</h3>
+          <h3 class="l-en">CODA User Manual</h3>
+          
+          <p class="sub l-ko">조미혜</p><p class="sub l-en">Cho Mi-hye</p>
+          <p class="keyline l-ko">나를 알아가고, 서로를 이해하며, 코다만의 특별함을 발견하는 시간입니다.</p>
+          <p class="keyline l-en">A time to get to know yourself, understand each other, and discover what makes CODAs special.</p>
+          
+          <p class="l-ko">〈코다 사용설명서〉는 <span class="nb">코다(CODA, Children of Deaf Adults)가</span> 자신의 경험과 정체성을 돌아보고, 서로의 이야기를 나누며 자신만의 특별함을 발견하는 참여형 워크숍입니다. 놀이와 자기표현 활동을 통해 자신을 새롭게 바라보고, 나를 표현하는 물건과 사용설명서를 만들며 성격과 감정, 관계 맺는 방식을 돌아봅니다.</p>
+          <p class="l-en">CODA User Manual is a participatory workshop where CODA <span class="nb">(Children of Deaf Adults)</span> look back on their experiences and identity, share stories with one another, and discover what makes each of them special. Through play and self-expression activities, they see themselves anew, create objects and a user manual that express who they are, and reflect on their personality, emotions and ways of forming relationships.</p>
+          
+          <div class="meta l-ko"><strong>시간</strong> 10:30, 13:30<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 연습실 1</div>
+          <div class="meta l-en">Time: 10:30, 13:30<span class="dot"> · </span><br class="mbr">Venue: Practice Room 1</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/ws-1-coda.jpg" alt="조미혜 강사" onerror="this.style.display='none'">
+          <div class="ph">images/ws-1-coda.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split reverse">
+        <div>
+          <span class="ws-num l-ko">WS 02</span><span class="ws-num l-en">Workshop 2</span>
+          <h3 class="l-ko">그림으로 만나는 농인의 시선</h3>
+          <h3 class="l-en">Deaf Perspectives Through Painting</h3>
+          
+          <p class="sub l-ko"><span class="nb">De'VIA(데비아)</span> 시각예술 체험 · 변강석</p>
+          <p class="sub l-en">De'VIA Visual Art Experience · Byun Kang suk</p>
+          
+          <p class="keyline l-ko">데비아에 대한 이해와 농인의 다양한 시선을 그림으로 나눕니다.</p>
+          <p class="keyline l-en">Understanding De'VIA and the many perspectives of Deaf people, expressed through drawing.</p>
+          
+          <p class="l-ko"><span class="nb">De'VIA(데비아)는</span> 농인의 언어와 문화, 정체성, 삶의 경험을 그림으로 표현하는 시각예술 운동입니다. 이번 워크숍에서는 아직 한국에 널리 알려지지 않은 De'VIA의 역사와 대표 작품을 살펴보고, 자신의 경험과 생각을 그림으로 표현해 봅니다. 그림을 잘 그리지 않아도 괜찮으며, 농인과 청인 누구나 서로 다른 시선과 경험을 예술로 나눌 수 있습니다.</p>
+          <p class="l-en">De'VIA is an art movement that expresses Deaf language, culture, identity and life experience through visual art. In this workshop, we explore the history and representative works of De'VIA, which is not yet well known in Korea, and express your own experiences and thoughts through drawing. You don't need to be good at drawing. Deaf and hearing participants alike can share different perspectives and experiences through art.</p>
+          
+          <div class="meta l-ko"><strong>시간</strong> 14:30, 15:30<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 연습실 1</div>
+          <div class="meta l-en">Time: 14:30, 15:30<span class="dot"> · </span><br class="mbr">Venue: Practice Room 1</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/ws-2-devia.jpg" alt="변강석 강사" onerror="this.style.display='none'">
+          <div class="ph">images/ws-2-devia.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">WS 03</span><span class="ws-num l-en">Workshop 3</span>
+          <h3 class="l-ko">움직임 &amp; 수어 릴레이 댄스 워크숍</h3>
+          <h3 class="l-en">Movement & Sign Language Relay Dance Workshop</h3>
+          
+          <p class="sub l-ko"><span class="nb">김지연(누비스)</span></p><p class="sub l-en">Kim Ji-yeon <span class="nb">(Nubis)</span></p>
+          <p class="keyline l-ko">감정과 신체 표현, 수어 및 제스처를 활용한 릴레이 창작 댄스입니다.</p>
+          <p class="keyline l-en">A relay creative dance that uses emotional and physical expression, sign language and gestures.</p>
+          
+          <p class="l-ko">언어와 연령, 신체 조건의 경계를 넘어 신체 표현, 제스처, 그리고 수어를 매개로 소통하고 함께 안무를 만들어 가는 커뮤니티 참여형 예술 프로그램입니다. 멋진 춤을 완성하기보다 참가자 각자가 자신의 생각과 감정을 손짓과 신체 움직임으로 자유롭게 표현하는 과정에 집중합니다. 참가자가 각자의 유일무이한 동작을 제시하고, 이를 릴레이 형태로 연결하여 하나의 완성된 팀 군무를 만들어냅니다.</p>
+          <p class="l-en">Going beyond the boundaries of language, age and physical ability, this community participatory art program uses body expression, gestures and sign language to communicate and create a dance together. Rather than perfecting a dance, the focus is on the process where each participant freely expresses their thoughts and emotions through hand gestures and body movement. Each participant offers a unique movement, and these are linked in relay form to create one complete team dance.</p>
+          
+          <div class="meta l-ko"><strong>시간</strong> 11:30, 14:30<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 연습실 2</div>
+          <div class="meta l-en">Time: 11:30, 14:30<span class="dot"> · </span><br class="mbr">Venue: Practice Room 2</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/ws-3-relay-dance.jpg" alt="김지연 강사" onerror="this.style.display='none'">
+          <div class="ph">images/ws-3-relay-dance.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split reverse">
+        <div>
+          <span class="ws-num l-ko">WS 04</span><span class="ws-num l-en">Workshop 4</span>
+          <h3 class="l-ko">VV 워크숍</h3>
+          <h3 class="l-en">VV Workshop</h3>
+          
+          <p class="sub l-ko">다비드 <span class="nb">우르반치크(David Urbanczyk)</span></p><p class="sub l-en">David Urbanczyk</p>
+          <p class="keyline l-ko">VV, 수어 시, 데프 슬램의 차이를 이해하고 직접 표현해 보는 워크숍입니다.</p>
+          <p class="keyline l-en">Understanding the differences between VV, sign poetry and Deaf slam, and experiencing them directly.</p>
+          
+          <p class="l-ko">손과 몸의 움직임, 표정만으로 얼마나 다양한 이야기를 표현할 수 있을까요? <span class="nb">VV(Visual Vernacular),</span> 수어 <span class="nb">시(Poesie),</span> 데프 <span class="nb">슬램(Deaf Slam)의</span> 특징과 차이점을 살펴보고, 수어를 기반으로 한 다양한 예술 표현 방식을 알아봅니다. VV의 창시자와 역사부터 각 장르의 표현 방식, 감정과 표정을 구성하는 방법까지 예시 영상을 통해 이해하고 직접 실습하며 경험해 봅니다.</p>
+          <p class="l-en">How many different stories can be told with only hands, body movement and facial expression? This workshop explores the features and differences of VV <span class="nb">(Visual Vernacular),</span> sign poetry <span class="nb">(Poesie)</span> and Deaf Slam, and introduces various sign-based forms of artistic expression. From the origins and history of VV to how each genre builds expression, emotion and facial expression, you will understand through example videos, then practice and experience directly.</p>
+          
+          <div class="meta l-ko"><strong>시간</strong> 10:30, 15:30<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 연습실 2</div>
+          <div class="meta l-en">Time: 10:30, 15:30<span class="dot"> · </span><br class="mbr">Venue: Practice Room 2</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/ws-4-vv.jpg" alt="다비드 우르반치크 강사" onerror="this.style.display='none'">
+          <div class="ph">images/ws-4-vv.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">WS 05</span><span class="ws-num l-en">Workshop 5</span>
+          <h3 class="l-ko"><span class="nw">&lt;보이는 언어를 기록하다&gt;</span> : 수어문자</h3>
+          <h3 class="l-en">Recording the Visible Language: SignWriting</h3>
+          
+          <p class="sub l-ko">최지혜</p><p class="sub l-en">Choi Ji-hye</p>
+          <p class="keyline l-ko">보이는 언어인 수어를 문자로 읽고 직접 써 보는 체험형 프로그램입니다.</p>
+          <p class="keyline l-en">A hands-on experience of reading and writing SignWriting, the way to write visible language.</p>
+          
+          <p class="l-ko">수어도 문자로 기록할 수 있을까요? 언어와 문자의 관계를 살펴보고, 수어를 기록하는 체계인 수어문자에 대해 알아봅니다. 손 모양, 손 방향, 손 위치, 움직임, 비수지기호 등 수어문자의 기본 구조를 익히고, 실제 수어문자를 가볍게 읽어봅니다. 마지막으로 자신의 수어이름이나 단어를 직접 표기해 보며, 보이는 언어를 문자로 기록하는 즐거움을 경험해 봅니다.</p>
+          <p class="l-en">Can sign language be recorded in writing? Looking at the relationship between language and writing, you will learn about SignWriting, a system for recording sign language. You will learn the basic structure of SignWriting — handshape, hand orientation, hand location, movement, and non-manual signals — and read real SignWriting lightly. Finally, you will write your own sign name or a word, and experience the joy of recording a visible language in writing.</p>
+          
+          <div class="meta l-ko"><strong>시간 · 장소</strong><br>11:30(연습실 1), 13:30(연습실 2)</div>
+          <div class="meta l-en"><strong>Time · Venue</strong><br>11:30(Practice Room 1), 13:30(Practice Room 2)</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/ws-5-signwriting.jpg" alt="최지혜 강사" onerror="this.style.display='none'">
+          <div class="ph">images/ws-5-signwriting.jpg</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="s-booth" id="booth">
+  <div class="deco" style="width:240px; height:240px; right:-70px; top:30px;"><svg><use href="#s-blob"/></svg></div>
+  <div class="wrap">
+    <span class="kicker l-ko">03 부스</span>
+    <span class="kicker l-en">03 BOOTH</span>
+    
+    <h2 class="sec-title l-ko">〈웰컴 투 데프 월드〉 부스</h2>
+    <h2 class="sec-title l-en">Welcome to the Deaf World Booths</h2>
+    
+    <p class="sec-desc l-ko">농문화와 수어를 기반으로 활동하는 <strong>12개 팀</strong>이 한자리에 모입니다. 굿즈를 구경하고, 직접 체험하고, 이야기를 나누며 데프 문화를 다양한 방식으로 만나 보세요.<br>일시 10. <span class="nb">31.(토)</span> 10:00~17:30<span class="dot"> · </span><br class="mbr">장소 모두예술극장 <strong>모두라운지</strong></p>
+    <p class="sec-desc l-en">Twelve teams active in Deaf culture and sign language come together in one place. Check out merchandise, try things out for yourself, and experience Deaf culture in many ways.<br>Oct 31 <span class="nb">(Sat)</span> 10:00–17:30 · Modu Lounge, Modu Art Theater</p>
+    
+
+    <div class="booth-photos">
+    </div>
+
+    <div class="booth-grid">
+
+      <div class="card">
+        <span class="booth-no">BOOTH 01</span>
+        <h3 class="l-ko">소온우웃다 : 손으로 말하고, 손으로 웃다</h3>
+        <h3 class="l-en">SOONWOOUTDA × SONDOLDOL : Speak with Hands, Smile Together</h3>
+        
+        <p class="sub l-ko">소온우웃다</p><p class="sub l-en">SOONWOOUTDA</p>
+        <p class="l-ko">농인 엄마이자 디자이너인 남다영이 운영하는 수어 라이프스타일 브랜드입니다. 수어와 지문자를 일상 속 디자인으로 풀어내어 포스터, 엽서, 의류 등 다양한 제품을 선보입니다.</p>
+        <p class="l-en">A sign language lifestyle brand run by Deaf mother and designer Nam Da-young. It turns sign language and fingerspelling into everyday design for posters, postcards, apparel and more.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-01.jpg" alt="BOOTH 01 사진" onerror="this.style.display='none'"><div class="ph">images/booth-01.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 02</span>
+        <h3 class="l-ko">농인의 여행을 잇다, 데프누리</h3>
+        <h3 class="l-en">Connecting Deaf Travelers, DeafNuri</h3>
+        
+        <p class="sub l-ko">데프누리 주식회사</p><p class="sub l-en">DeafNuri</p>
+        <p class="l-ko">농인이 자신의 언어로 여행 정보를 접하고 다양한 여행을 경험할 수 있도록 맞춤형 관광 서비스와 콘텐츠를 만드는 관광 플랫폼입니다. 이번 부스에서는 데프누리의 여행 이야기와 굿즈를 만나볼 수 있습니다.</p>
+        <p class="l-en">A tourism platform creating customized travel services and content so Deaf people can access travel information in their own language and enjoy diverse trips. At this booth, you can meet Deafnuri's travel stories and merchandise.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-02.jpg" alt="BOOTH 02 사진" onerror="this.style.display='none'"><div class="ph">images/booth-02.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 03</span>
+        <h3 class="l-ko">데프리다 × 해마수중하키단</h3>
+        <h3 class="l-en">Deafreeda × Haema Underwater Hockey Team</h3>
+        
+        <p class="sub l-ko">데프리다X해마수중하키단</p><p class="sub l-en">Deafreeda × Haema</p>
+        <p class="l-ko">농인 프리다이빙 브랜드 데프리다와 농인 수중하키팀 해마수중하키단이 함께하는 체험 부스입니다. 숨참기 챌린지와 수중하키 장비 체험을 통해 농인 수중스포츠의 매력을 만나볼 수 있습니다.</p>
+        <p class="l-en">An experience booth by Deafreeda, a Deaf freediving brand, and Haema Underwater Hockey Team, a Deaf underwater hockey team. Try the breath-hold challenge and underwater hockey equipment to discover the appeal of underwater sports for Deaf people.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-03.jpg" alt="BOOTH 03 사진" onerror="this.style.display='none'"><div class="ph">images/booth-03.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 04</span>
+        <h3 class="l-ko">수다람툰 굿즈샵</h3>
+        <h3 class="l-en">SUDARAM Merch Shop</h3>
+        
+        <p class="sub l-ko">수다람</p><p class="sub l-en">SUDARAM</p>
+        <p class="l-ko">수어와 농문화를 바탕으로, 농인으로서 마주하는 일상과 생각을 그리는 작가 수다람입니다. 직접 디자인하고 정성껏 제작한 수다람툰의 이야기를 담은 <span class="nb">굿즈(수어포스터, 스티커 등)를</span> 만나보세요.</p>
+        <p class="l-en">Artist Sudaram draws everyday life and thoughts as a Deaf person, rooted in sign language and Deaf culture. Check out goods featuring the stories of Sudaram Toon, designed and made with care, such as sign language posters and stickers.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-04.jpg" alt="BOOTH 04 사진" onerror="this.style.display='none'"><div class="ph">images/booth-04.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 05</span>
+        <h3 class="l-ko">비베이크 구움과자 판매 부스</h3>
+        <h3 class="l-en">BeeBake Baked Goods Booth</h3>
+        
+        <p class="sub l-ko">비베이크</p><p class="sub l-en">BeeBake</p>
+        <p class="l-ko">6년차 홈베이커로, 다양한 구움과자와 디저트를 직접 만들고 있습니다. 이번 행사에서는 휘낭시에, 쿠키 등 수제 구움과자를 판매할 예정입니다.</p>
+        <p class="l-en">A home baker with six years of experience, making a variety of baked goods and desserts by hand. For this event, BeeBake will sell handmade baked goods including financiers and cookies.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-05.jpg" alt="BOOTH 05 사진" onerror="this.style.display='none'"><div class="ph">images/booth-05.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 06</span>
+        <h3 class="l-ko">제스처네일, 예쁜 손끝으로 전하는 이야기</h3>
+        <h3 class="l-en">Gesture Nail, Stories Told Through Beautiful Fingertips</h3>
+        
+        <p class="sub l-ko">제스처네일</p><p class="sub l-en">Gesture Nail</p>
+        <p class="l-ko">농인네일리스트 2인이 함께 운영하는 네일샵입니다. 케어 원컬러 시술을 직접 경험하실 수 있으며, 수제 핸드크림 등 손관리 제품도 만나볼 수 있습니다. 부스를 방문해주신 관람객 특별 할인쿠폰도 함께 제공해 드립니다.</p>
+        <p class="l-en">A nail shop run by two Deaf nail artists. Experience the care one-color treatment in person, and discover handmade hand creams and other hand care products. Visitors who stop by will receive a special discount coupon.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-06.jpg" alt="BOOTH 06 사진" onerror="this.style.display='none'"><div class="ph">images/booth-06.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 07</span>
+        <h3 class="l-ko">꽃으로 잇는 우리</h3>
+        <h3 class="l-en">Connected by Flowers</h3>
+        
+        <p class="sub l-ko">봉주르플라워</p><p class="sub l-en">Bonjour Flower</p>
+        <p class="l-ko">꽃과 수어로 사람과 사람을 잇는 공간입니다. 꽃 선물에 담긴 다양한 의미를 수어로 배우고, 직접 꽃을 만들며 마음을 나누는 특별한 경험을 함께합니다.</p>
+        <p class="l-en">A space connecting people through flowers and sign language. Learn the meanings behind flower gifts in sign language, make flowers yourself, and share heartfelt messages in a special experience together.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-07.jpg" alt="BOOTH 07 사진" onerror="this.style.display='none'"><div class="ph">images/booth-07.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 08</span>
+        <h3 class="l-ko">수어민들레</h3>
+        <h3 class="l-en">Sign Language Dandelion</h3>
+        
+        <p class="sub l-ko">수어민들레</p><p class="sub l-en">Sign Language Dandelion</p>
+        <p class="l-ko">수어의 아름다움과 즐거움을 나누는 <span class="nb">판매·체험</span> 부스입니다. <span class="nb">국제수화·수어</span> 카드 게임, 배지, 티셔츠 등 다양한 굿즈를 만나고 수어 카드 게임도 직접 체험할 수 있습니다.</p>
+        <p class="l-en">A sales and experience booth that shares the beauty and joy of sign language. Find goods such as the International Sign and sign language card game, badges and T-shirts, and try the sign language card game yourself.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-08.jpg" alt="BOOTH 08 사진" onerror="this.style.display='none'"><div class="ph">images/booth-08.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 09</span>
+        <h3 class="l-ko">농인의 자녀인 <span class="nb">코다(CODA)의</span> 모임, 코다코리아</h3>
+        <h3 class="l-en">CODA Korea, a network and organization for CODA.</h3>
+        
+        <p class="sub l-ko">코다코리아</p><p class="sub l-en">CODA Korea</p>
+        <p class="l-ko">농인의 자녀인 코다를 연결하고 그들의 이야기를 전하는 비영리단체입니다. 코다의 경험과 정체성을 담은 도서 전시 및 판매, 리플릿과 스티커를 만나볼 수 있습니다.</p>
+        <p class="l-en">A non-profit organization connecting CODAs and sharing their stories. Browse and buy books that capture CODA experiences and identity, and get leaflets and stickers.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-09.jpg" alt="BOOTH 09 사진" onerror="this.style.display='none'"><div class="ph">images/booth-09.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 10</span>
+        <h3 class="l-ko">한국농인네일협회</h3>
+        <h3 class="l-en">Korean Deaf Nail Association</h3>
+        
+        <p class="sub l-ko">한국농인네일협회</p><p class="sub l-en">Korean Deaf Nail Association</p>
+        <p class="l-ko">손끝의 기술로 새로운 가능성을 넓혀가는 농인 네일리스트들의 성장과 도전을 소개합니다. 협회 활동 팸플릿과 네일아트 작품 도록, 매거진 전시 및 마그넷 판매를 통해 이야기를 만나보세요.</p>
+        <p class="l-en">Introduces the growth and challenges of Deaf nail artists, who expand new possibilities with the skill of their fingertips. Learn about the association's activities through pamphlets, see a catalog of nail art works, and buy magnets, and hear the stories of Deaf nail artists.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-10.jpg" alt="BOOTH 10 사진" onerror="this.style.display='none'"><div class="ph">images/booth-10.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 11</span>
+        <h3 class="l-ko">한국농아청년회</h3>
+        <h3 class="l-en">Korea Association of the Deaf Youth (KADY)</h3>
+        
+        <p class="sub l-ko">한국농아청년회</p><p class="sub l-en">Korea Association of the Deaf Youth</p>
+        <p class="l-ko">농청년이 주체가 되어 권익 증진과 사회참여 확대를 위해 활동하는 청년단체입니다. 국내외 교류와 문화, 교육 활동을 통해 농청소년과 농청년의 성장과 연대를 이어가고 있습니다.</p>
+        <p class="l-en">A youth group where Deaf young people lead efforts to expand rights and social participation. Through domestic and international exchange, culture and education activities, it supports the growth and solidarity of Deaf youth and young adults.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-11.jpg" alt="BOOTH 11 사진" onerror="this.style.display='none'"><div class="ph">images/booth-11.jpg</div></div>
+      </div>
+
+      <div class="card">
+        <span class="booth-no">BOOTH 12</span>
+        <h3 class="l-ko">강이, 원이와 함께 놀아요</h3>
+        <h3 class="l-en">Let's play with Kang and Won!</h3>
+        
+        <p class="sub l-ko">강원도수어문화원</p><p class="sub l-en">Gangwon Sign Language Culture Center</p>
+        <p class="l-ko">퍼즐을 맞추며 쉽고 재미있게 수어 단어를 익히는 참여형 체험 프로그램입니다. QR코드를 통해 다양한 수어 영상과 학습 콘텐츠를 만나며 일상 속 수어와 더욱 가까워질 수 있습니다.</p>
+        <p class="l-en">A participatory experience program where you learn sign words easily and fun while solving puzzles. Scan QR codes to explore diverse sign language videos and learning content, bringing sign language closer to everyday life.</p>
+        
+        <div class="img-box booth-pic"><img src="images/booth-12.jpg" alt="BOOTH 12 사진" onerror="this.style.display='none'"><div class="ph">images/booth-12.jpg</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="s-slam" id="slam-performance">
+  <div class="deco" style="width:200px; height:200px; left:-40px; bottom:40px;"><svg><use href="#s-arch"/></svg></div>
+  <div class="wrap">
+    <span class="kicker l-ko">04 <span class="nb">슬램·공연</span></span>
+    <span class="kicker l-en">04 PERFORMANCE&SLAM</span>
+    
+    <h2 class="sec-title l-ko">슬램과 공연</h2>
+    <h2 class="sec-title l-en">Performance&Slam</h2>
+    
+    <p class="sec-desc l-ko">순간의 생각을 겨루는 수어 슬램, 수어로 창작한 문학을 무대에서 만나는 공연입니다.</p>
+    <p class="sec-desc l-en">A sign language slam where ideas face off in the moment, and a performance where sign-language literature comes to life on stage.</p>
+    
+
+    <div class="stack">
+
+      <div class="card split">
+        <div>
+          <span class="ws-num l-ko">슬램</span><span class="ws-num l-en">Slam</span>
+          <h3 class="l-ko">〈웰컴 투 데프 월드〉 슬램</h3>
+          <h3 class="l-en">Welcome to the Deaf World Slam</h3>
+          
+          <p class="sub l-ko">수어민들레</p><p class="sub l-en">Sign Language Dandelion</p>
+          <p class="keyline l-ko">주어진 주제를 보고 순간적으로 생각을 정리하는 사고력과 순발력, 자신의 주장을 설득력 있게 전달하는 논리력을 겨루는 수어 대결입니다.</p>
+          <p class="keyline l-en">A sign language contest of instant thinking that tests the ability to organize ideas quickly, the agility to respond, and the logic to deliver your argument persuasively.</p>
+          
+          <p class="l-ko">참가자들은 주제에 맞춰 자신의 생각과 의견을 수어로 자유롭게 표현하며, 15초씩 번갈아 가며 상대방의 주장에 대응하거나 새로운 관점을 제시합니다. 정해진 답은 없으며, 각자의 생각과 논리로 관객의 공감을 이끌어내는 것이 중요합니다. 관객들은 두 참가자의 이야기를 지켜보며 누구의 주장에 더 공감하는지 박수로 표현하고, 가장 많은 박수를 받은 참가자가 우승합니다.</p>
+          <p class="l-en">Participants express their own thoughts and opinions in sign language on a given topic, taking turns for 15 seconds each. They respond to the other's argument or present a new perspective. There is no fixed answer; what matters is drawing the audience's empathy through one's own thoughts and logic. After watching both participants, the audience applauds for the argument they find more convincing, and the participant who receives the most applause wins.</p>
+          
+          <div class="meta l-ko"><strong>일시</strong> 10. <span class="nb">31.(토)</span> 19:30~21:00<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 공연장<span class="sep"> · </span><span class="dur"><strong>소요시간</strong> 90분</span></div>
+          <div class="meta l-en">Date: Oct 31 <span class="nb">(Sat)</span> 19:30–21:00<span class="dot"> · </span><br class="mbr">Venue: Modu Art Theater Auditorium · Duration: 90 min</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/slam.jpg" alt="수어민들레 슬램 공연 사진" onerror="this.style.display='none'">
+          <div class="ph">images/slam.jpg</div>
+        </div>
+      </div>
+
+      <div class="card split reverse">
+        <div>
+          <span class="ws-num l-ko">공연</span><span class="ws-num l-en">Performance</span>
+          <h3 class="l-ko">〈웰컴 투 데프 월드〉 수어문학 공연</h3>
+          <h3 class="l-en">Welcome to the Deaf World Sign Literature Performance</h3>
+          
+          <p class="sub l-ko">수어민들레</p><p class="sub l-en">Sign Language Dandelion</p>
+          <p class="keyline l-ko">아직은 낯설지만 어딘가 익숙한 수어문학. 직접 눈으로 보고 느끼며 그 매력을 발견할 수 있는 공연입니다.</p>
+          <p class="keyline l-en">Sign literature may feel unfamiliar yet somehow familiar. It is a performance where you can see it with your own eyes, feel it, and discover its appeal.</p>
+          
+          <p class="l-ko">농인의 언어인 수어를 바탕으로 손과 몸의 움직임, 표정, 공간을 활용하는 수어문학은 소리와 글자 중심의 문학과는 또 다른 예술적 경험을 선사합니다. 수어시를 비롯해 수어이야기와 비주얼 <span class="nb">버내큘러(VV),</span> 수어연극 등 각 장르는 수어만의 시각적 특성을 바탕으로 저마다 다른 방식으로 이야기를 전하고 감정과 생각을 표현합니다. 수어를 처음 접하는 사람에게는 새로운 감각으로, 익숙한 사람에게는 미처 발견하지 못했던 표현의 가능성으로 다가옵니다. 익숙한 듯 낯설고, 낯설지만 어느새 빠져들게 되는 수어문학의 세계에서 다채로운 매력과 무한한 예술적 가능성을 만나 보세요.</p>
+          <p class="l-en">Based on sign language, the language of Deaf people, sign literature uses hand and body movement, facial expression, and space, offering an artistic experience different from literature centered on sound and text. Sign poetry, sign stories, Visual Vernacular <span class="nb">(VV)</span> and sign theatre each convey stories and express emotions and thoughts in their own ways, drawing on the unique visual qualities of sign language. For those encountering sign language for the first time, it offers a fresh sensation; for those familiar with it, it reveals expressive possibilities they had not yet noticed. Experience the world of sign literature, which feels both familiar and new, and draws you in, with its diverse charm and boundless artistic potential.</p>
+          
+          <div class="meta l-ko"><strong>일시</strong> 10. <span class="nb">31.(토)</span> 18:00~19:30<span class="dot"> · </span><br class="mbr"><strong>장소</strong> 모두예술극장 공연장<span class="sep"> · </span><span class="dur"><strong>소요시간</strong> 90분</span></div>
+          <div class="meta l-en">Date: Oct 31 <span class="nb">(Sat)</span> 18:00–19:30<span class="dot"> · </span><br class="mbr">Venue: Modu Art Theater Auditorium · Duration: 90 min</div>
+          
+        </div>
+        <div class="img-box">
+          <img src="images/performance.jpg" alt="수어문학 공연 사진" onerror="this.style.display='none'">
+          <div class="ph">images/performance.jpg</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+<footer>
+  <div class="l-ko">
+    <p class="big">모두 이야기 캠프</p>
+    <p>2026 장애예술주간 〈모두 이야기 캠프〉 · 모두예술극장</p>
+    <p style="margin-top:16px;">서로 다른 이야기가 모여 우리 모두의 이야기가 되는 시간.</p>
+  </div>
+  <div class="l-en">
+    <p class="big">Modu-Story Camp</p>
+    <p>2026 Disability Arts Week · Modu-Story Camp · Modu Art Theater</p>
+    <p style="margin-top:16px;">Different stories gather to become our shared story.</p>
+  </div>
+  
+</footer>
+
+<script>
+  // 언어 전환: 선택한 언어를 기억하고, 버튼 표시를 맞춘다
+  (function () {
+    var htmlLang = { ko: 'ko', en: 'en' };
+    function setLang(l) {
+      if (!htmlLang[l]) l = 'ko';
+      document.body.setAttribute('data-lang', l);
+      document.documentElement.lang = htmlLang[l];
+      document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-set-lang') === l);
+      });
+      try { localStorage.setItem('welcome-lang', l); } catch (e) {}
+    }
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        setLang(b.getAttribute('data-set-lang'));
+      });
+    });
+    var saved = null;
+    try { saved = localStorage.getItem('welcome-lang'); } catch (e) {}
+    setLang(saved || 'ko');
+  })();
+
+  // 스크롤 위치에 따라 상단 메뉴의 현재 프로그램 표시
+  (function () {
+    var links = document.querySelectorAll('.topnav .pill');
+    var targets = [];
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) targets.push({ link: a, el: el });
+    });
+    function onScroll() {
+      var y = window.scrollY + 140;
+      var current = null;
+      targets.forEach(function (t) {
+        if (t.el.offsetTop <= y) current = t;
+      });
+      targets.forEach(function (t) {
+        t.link.classList.toggle('active', t === current);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<button type="button" class="to-top" aria-label="맨 위로 / Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="arrow">⬆️</span>TOP</button>
+<script>
+(function () {
+  var bw = document.querySelector('.brand-wrap');
+  if (!bw) return;
+  var bv = bw.querySelector('video');
+  function show() { bw.classList.add('open'); try { bv.play().catch(function () {}); } catch (e) {} }
+  function hide() { bw.classList.remove('open'); try { bv.pause(); } catch (e) {} }
+  bw.addEventListener('mouseenter', show);
+  bw.addEventListener('mouseleave', hide);
+  bw.addEventListener('touchstart', function () {
+    if (bw.classList.contains('open')) hide(); else show();
+  }, { passive: true });
+})();
+</script>
+<script>
+(function () {
+  var isTouchOnly = window.matchMedia('(hover: none)').matches;
+  var items = [];
+  document.querySelectorAll('.hotspot').forEach(function (a) {
+    var v = a.querySelector('.hs-video video');
+    if (!v) return;
+    items.push({ a: a, v: v });
+  });
+  function show(it) {
+    items.forEach(function (o) { if (o !== it) { o.a.classList.remove('playing'); try { o.v.pause(); } catch (e) {} } });
+    it.a.classList.add('playing');
+    try { it.v.play().catch(function () {}); } catch (e) {}
+    if (isTouchOnly) { it.a.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  }
+  function hide(it) { it.a.classList.remove('playing'); try { it.v.pause(); } catch (e) {} }
+  items.forEach(function (it) {
+    // mouse: hover shows the video
+    it.a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') show(it); });
+    it.a.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(it); });
+    // touch: first tap shows the video, second tap goes to the section
+    it.a.addEventListener('click', function (e) {
+      if (!isTouchOnly) return;
+      if (!it.a.classList.contains('playing')) { e.preventDefault(); show(it); }
+    });
+  });
+})();
+</script>
+<script>
+(function () {
+  document.querySelectorAll('.sched').forEach(function (sec) {
+    var days = Array.prototype.slice.call(sec.querySelectorAll('.day'));
+    if (!days.length) return;
+    // compact meta line per program row
+    sec.querySelectorAll('.srow:not(.head)').forEach(function (row) {
+      var t = row.querySelector('.ptime'), d = row.querySelector('.pdur'), v = row.querySelector('.pplace');
+      if (!t || !v) return;
+      var m = document.createElement('div'); m.className = 'pmeta';
+      m.innerHTML = t.innerHTML + ' · ' + d.innerHTML + ' · ' + v.innerHTML;
+      row.appendChild(m);
+    });
+    // tabs
+    var bar = document.createElement('div'); bar.className = 'day-tabs';
+    days.forEach(function (day, i) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.textContent = day.querySelector('.day-h').textContent.trim();
+      b.addEventListener('click', function () {
+        days.forEach(function (x) { x.classList.remove('active'); });
+        bar.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+        day.classList.add('active'); b.classList.add('on');
+      });
+      if (i === 0) { day.classList.add('active'); b.classList.add('on'); }
+      bar.appendChild(b);
+    });
+    days[0].parentNode.insertBefore(bar, days[0]);
+  });
+})();
+</script>
+<div class="mag" id="mag" role="dialog" aria-modal="true" aria-label="프로그램 책 보기">
+  <button class="mag-close" id="magClose" aria-label="닫기">✕</button>
+  <button class="mag-btn prev" id="magPrev" aria-label="이전">←</button>
+  <div class="mag-spread" id="magSpread">
+    <div class="mag-left" id="magLeft"></div>
+    <div class="mag-right" id="magRight"></div>
+  </div>
+  <button class="mag-btn next" id="magNext" aria-label="다음">→</button>
+  <div class="mag-count" id="magCount"></div>
+</div>
+<script>
+(function () {
+  var src = document.getElementById('bookSource');
+  var mag = document.getElementById('mag');
+  var spread = document.getElementById('magSpread');
+  var left = document.getElementById('magLeft');
+  var right = document.getElementById('magRight');
+  var count = document.getElementById('magCount');
+  var KEYS = ['exhibition', 'workshop', 'booth', 'slam-performance'];
+
+  // ---- build the book: one entry per spread ----
+  var pages = [], start = {}, end = {};
+  var koDays = src.querySelectorAll('.sched.l-ko .day');
+  start['schedule'] = 0;
+  for (var d = 0; d < koDays.length; d++) pages.push({ kind: 'sched', i: d });
+  KEYS.forEach(function (k) {
+    start[k] = pages.length;
+    var cards = [].slice.call(src.querySelectorAll('#' + k + ' .card'));
+    if (k === 'booth') {
+      // booths have no photos: two booths per spread (left = first, right = second)
+      for (var j = 0; j < cards.length; j += 2) pages.push({ kind: 'pair', a: cards[j], b: cards[j + 1] || null });
+    } else {
+      cards.forEach(function (c) { pages.push({ kind: 'card', el: c }); });
+    }
+  });
+  // mobile only: all 12 booths in one scrolling page
+  var boothAll = [].slice.call(src.querySelectorAll('#booth .card'));
+  var boothListIdx = pages.length;
+  pages.push({ kind: 'list', cards: boothAll });
+  var ORDER = ['schedule'].concat(KEYS);
+  ORDER.forEach(function (k, n) {
+    end[k] = n + 1 < ORDER.length ? start[ORDER[n + 1]] : pages.length;
+  });
+  var lo = 0, hi = pages.length, cur = 0, busy = false, startX = null;
+
+  // ---- building blocks ----
+  function rowsOf(day, cls) {
+    var wrap = document.createElement('div');
+    wrap.className = cls;
+    [].forEach.call(day.querySelectorAll('.srow:not(.head)'), function (r) {
+      var tag = r.querySelector('.tag'), pn = r.querySelector('.pname');
+      var t = r.querySelector('.ptime'), du = r.querySelector('.pdur'), pl = r.querySelector('.pplace');
+      var row = document.createElement('div');
+      row.className = 'sr';
+      row.innerHTML =
+        (tag ? '<div class="sr-tag">' + tag.outerHTML + '</div>' : '') +
+        '<h4>' + (pn ? pn.innerHTML : '') + '</h4>' +
+        '<p>' + (t ? t.innerHTML : '') + (du ? ' · ' + du.innerHTML : '') + (pl ? ' · ' + pl.innerHTML : '') + '</p>';
+      wrap.appendChild(row);
+    });
+    return wrap;
+  }
+  function textInto(target, card) {
+    [].forEach.call(card.children, function (el) {
+      if (!el.classList.contains('img-box')) target.appendChild(el.cloneNode(true));
+    });
+  }
+  // returns the left and right page of one spread
+  function parts(p) {
+    var l = document.createElement('div'), r = document.createElement('div');
+    if (p.kind === 'list') {
+      l.className = 'mag-left text-page';
+      r.className = 'mag-right';
+      p.cards.forEach(function (c) {
+        var w = document.createElement('div');
+        w.className = 'booth-item';
+        textInto(w, c);
+        var pic = c.querySelector('.booth-pic');
+        if (pic) w.appendChild(pic.cloneNode(true));
+        l.appendChild(w);
+      });
+      wrapIn(l);
+      return { l: l, r: r, sched: false, list: true };
+    }
+    if (p.kind === 'sched') {
+      var ko = koDays[p.i], en = src.querySelectorAll('.sched.l-en .day')[p.i];
+      l.className = 'mag-left sched-left';
+      l.innerHTML =
+        '<div class="sd-big l-ko">' + ko.querySelector('.day-h').innerHTML + '</div>' +
+        '<div class="sd-big l-en">' + en.querySelector('.day-h').innerHTML + '</div>' +
+        '<p class="sd-sub l-ko">전체 프로그램 일정표</p><p class="sd-sub l-en">Full Program Schedule</p>';
+      r.className = 'mag-right';
+      r.appendChild(rowsOf(ko, 'l-ko'));
+      r.appendChild(rowsOf(en, 'l-en'));
+      wrapIn(r);
+    } else if (p.kind === 'card') {
+      var img = p.el.querySelector('.img-box');
+      l.className = img ? 'mag-left' : 'mag-left text-page';
+      if (img) l.appendChild(img.cloneNode(true));
+      r.className = 'mag-right';
+      textInto(r, p.el);
+      wrapIn(r);
+    } else {
+      l.className = 'mag-left text-page';
+      r.className = 'mag-right';
+      textInto(l, p.a);
+      if (p.b) textInto(r, p.b);
+      var pa = p.a.querySelector('.booth-pic'); if (pa) l.appendChild(pa.cloneNode(true));
+      if (p.b) { var pb = p.b.querySelector('.booth-pic'); if (pb) r.appendChild(pb.cloneNode(true)); }
+      wrapIn(l); wrapIn(r);
+    }
+    return { l: l, r: r, sched: p.kind === 'sched' };
+  }
+  function wrapIn(el) {
+    var w = document.createElement('div');
+    w.className = 'pg-in';
+    while (el.firstChild) w.appendChild(el.firstChild);
+    el.appendChild(w);
+  }
+  function setHalf(el, part) {
+    el.className = part.className;
+    el.innerHTML = '';
+    while (part.firstChild) el.appendChild(part.firstChild);
+  }
+  function show(i) {
+    var s = parts(pages[i]);
+    setHalf(left, s.l);
+    setHalf(right, s.r);
+    right.style.display = s.list ? 'none' : '';
+    mag.classList.toggle('sched-page', s.sched);
+    count.textContent = (i - lo + 1) + ' / ' + (hi - lo);
+    left.scrollTop = 0; right.scrollTop = 0;
+  }
+
+  // ---- page turn: the sheet hinges on the spine and turns over ----
+  function turn(dir) {
+    var next = cur + dir;
+    if (busy || next < lo || next >= hi) return;
+    busy = true;
+    var A = parts(pages[cur]), B = parts(pages[next]);
+    var mobile = window.matchMedia('(max-width: 760px)').matches;
+    var sheet = document.createElement('div');
+    var face = document.createElement('div');
+    var back = document.createElement('div');
+    var shade = document.createElement('div');
+    sheet.className = 'mag-sheet';
+    face.className = 'sheet-face front';
+    back.className = 'sheet-face back';
+    shade.className = 'mag-shade';
+    var origin, to;
+    if (mobile) {
+      // single-column: the whole page turns away, the next page is underneath
+      var stack = document.createElement('div');
+      stack.className = 'sheet-stack';
+      stack.appendChild(A.l.cloneNode(true));
+      stack.appendChild(A.r.cloneNode(true));
+      face.appendChild(stack);
+      back.className += ' blank';
+      sheet.classList.add('full');
+      setHalf(left, B.l);
+      setHalf(right, B.r);
+      origin = dir > 0 ? 'left' : 'right';
+      to = dir > 0 ? -180 : 180;
+    } else if (dir > 0) {
+      // right page lifts over the spine; its reverse shows the next left page
+      sheet.classList.add('right');
+      face.appendChild(A.r.cloneNode(true));
+      back.appendChild(B.l.cloneNode(true));
+      setHalf(left, A.l);
+      setHalf(right, B.r);
+      origin = 'left'; to = -180;
+    } else {
+      // left page lifts over the spine; its reverse shows the previous right page
+      sheet.classList.add('left');
+      face.appendChild(A.l.cloneNode(true));
+      back.appendChild(B.r.cloneNode(true));
+      setHalf(left, B.l);
+      setHalf(right, A.r);
+      origin = 'right'; to = 180;
+    }
+    sheet.style.transformOrigin = origin + ' center';
+    sheet.appendChild(face);
+    sheet.appendChild(back);
+    spread.appendChild(shade);
+    spread.appendChild(sheet);
+    var D = 820;
+    var anim = sheet.animate(
+      [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(' + to + 'deg)' }],
+      { duration: D, easing: 'cubic-bezier(.45,.05,.3,1)', fill: 'forwards' });
+    shade.animate([{ opacity: 0 }, { opacity: 0.32, offset: 0.5 }, { opacity: 0 }], { duration: D, easing: 'linear' });
+    anim.onfinish = function () {
+      cur = next;
+      show(cur);
+      sheet.remove();
+      shade.remove();
+      busy = false;
+    };
+  }
+
+  function open(key) {
+    if (key === 'booth' && window.matchMedia('(max-width: 760px)').matches) {
+      lo = boothListIdx; hi = boothListIdx + 1;
+    } else {
+      lo = start[key]; hi = end[key];
+    }
+    cur = lo;
+    show(cur);
+    mag.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    history.replaceState(null, '', '#book-' + key);
+  }
+  function close() {
+    mag.classList.remove('open');
+    document.body.style.overflow = '';
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+
+  // every button or poster hotspot that points to #book-<key> opens the book there
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented) return; // first tap on a poster button only shows its video
+    var a = e.target.closest && e.target.closest('a[href^="#book-"]');
+    if (!a) return;
+    var key = a.getAttribute('href').slice(6);
+    if (!(key in start)) return;
+    e.preventDefault();
+    open(key);
+  });
+  document.getElementById('magClose').onclick = close;
+  document.getElementById('magPrev').onclick = function () { turn(-1); };
+  document.getElementById('magNext').onclick = function () { turn(1); };
+  mag.addEventListener('click', function (e) { if (e.target === mag) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!mag.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') turn(-1);
+    if (e.key === 'ArrowRight') turn(1);
+  });
+  mag.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+  mag.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) turn(dx < 0 ? 1 : -1);
+    startX = null;
+  }, { passive: true });
+
+  // deep link: index.html#book-workshop opens that part of the book
+  var m = location.hash.match(/^#book-(.+)$/);
+  if (m && (m[1] in start)) open(m[1]);
+})();
+</script>
+</body>
+</html>
