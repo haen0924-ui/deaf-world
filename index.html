@@ -423,10 +423,10 @@
 
   /* ================= 포스터 태그 영상 ================= */
   /* 모바일 손가락 탭 안내 (터치 기기에서만, 계속 두드림) */
-  .tap-hint { display: none; position: absolute; right: 2px; top: calc(100% - 6px); width: 28px; height: 28px; pointer-events: none; animation: tapHint 1.3s ease-in-out infinite; }
-  .tap-hint svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .tap-hint { display: none; position: absolute; right: 10px; top: -38px; width: 42px; height: 42px; z-index: 30; pointer-events: none; animation: tapHint 1.2s ease-in-out infinite; }
+  .tap-hint svg { width: 100%; height: 100%; display: block; overflow: visible; transform: rotate(180deg); }
   @media (hover: none) { .hotspot.playing .tap-hint { display: block; } }
-  @keyframes tapHint { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-4px); } }
+  @keyframes tapHint { 0%, 100% { transform: translateY(-8px); } 40%, 55% { transform: translateY(0); } }
   @media (prefers-reduced-motion: reduce) { .tap-hint { animation: none; } }
   .hotspot .hs-video {
     display: none; position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%);
