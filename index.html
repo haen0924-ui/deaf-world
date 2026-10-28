@@ -1473,14 +1473,14 @@
       cards.forEach(function (c) { pages.push({ kind: 'card', el: c }); });
     }
   });
-  // mobile only: all 12 booths in one scrolling page
-  var boothAll = [].slice.call(src.querySelectorAll('#booth .card'));
-  var boothListIdx = pages.length;
-  pages.push({ kind: 'list', cards: boothAll });
   var ORDER = ['schedule'].concat(KEYS);
   ORDER.forEach(function (k, n) {
     end[k] = n + 1 < ORDER.length ? start[ORDER[n + 1]] : pages.length;
   });
+  // mobile only (added after the ranges are set, so no category runs into it): all 12 booths in one scrolling page
+  var boothAll = [].slice.call(src.querySelectorAll('#booth .card'));
+  var boothListIdx = pages.length;
+  pages.push({ kind: 'list', cards: boothAll });
   var lo = 0, hi = pages.length, cur = 0, busy = false, startX = null;
 
   // ---- building blocks ----
