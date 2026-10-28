@@ -567,6 +567,7 @@
   .booth-item { padding-bottom: 26px; margin-bottom: 26px; border-bottom: 1.5px dashed #d9d4c7; }
   .booth-item:last-child { border-bottom: none; margin-bottom: 0; }
   .booth-item .booth-pic { margin: 16px auto 0; }
+  .mag.one-page #magPrev, .mag.one-page #magNext { display: none !important; }
   .booth-pic img, .mag-left .booth-pic img, .booth-item .booth-pic img { height: auto; object-fit: contain; }
 </style>
 </head>
@@ -1567,6 +1568,7 @@
     setHalf(left, s.l);
     setHalf(right, s.r);
     right.style.display = s.list ? 'none' : '';
+    mag.classList.toggle('one-page', !!s.list);
     mag.classList.toggle('sched-page', s.sched);
     count.textContent = (i - lo + 1) + ' / ' + (hi - lo);
     left.scrollTop = 0; right.scrollTop = 0;
